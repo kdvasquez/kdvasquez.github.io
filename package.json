@@ -1,0 +1,21 @@
+{
+  "name": "peaceful-point",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@iconify-json/ion": "^1.2.6",
+    "@iconify-json/simple-icons": "^1.2.71",
+    "astro": "^5.14.8",
+    "astro-icon": "^1.1.5"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.97.3"
+  }
+}

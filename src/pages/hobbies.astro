@@ -1,0 +1,168 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+---
+
+<PageLayout>
+  <head>
+    <Head title="Hobbies & Writing" permalink="/hobbies" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <section class="hobbies-header">
+        <h1>Things I create on the side</h1>
+        <p class="subtitle">Writing, videos, and projects outside of my main portfolio.</p>
+      </section>
+
+      <div class="media-grid">
+        <a 
+          href="https://drive.google.com/drive/folders/192sIDHLSmQAetE8k-3I9UXxBCY_-LUGf" 
+          target="_blank" 
+          rel="noreferrer"
+          class="media-card writing"
+        >
+          <div class="media-icon">✍️</div>
+          <h2>Writing & Essays</h2>
+          <p>Theoretical explorations, technical essays, and reflective writing on computer science, philosophy, and learning.</p>
+          <span class="media-link">Browse Essays →</span>
+        </a>
+
+        <a 
+          href="https://drive.google.com/drive/folders/1LZQer-DDOwrn0O90wVXIBgXvJMBofvUQ" 
+          target="_blank" 
+          rel="noreferrer"
+          class="media-card video"
+        >
+          <div class="media-icon">🎬</div>
+          <h2>Video & Media</h2>
+          <p>Creative short films, project demos, and multimedia work exploring storytelling and visual communication.</p>
+          <span class="media-link">Watch Videos →</span>
+        </a>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .hobbies-header {
+    margin-bottom: 3rem;
+    
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--med);
+      font-style: oblique;
+      margin: 0;
+    }
+  }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .media-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 12px;
+    border-left: 4px solid var(--med);
+    border-top: 2px solid var(--light);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      border-left-color: var(--light);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: var(--med);
+      transition: color 0.3s ease;
+    }
+
+    p {
+      margin: 0;
+      color: var(--black);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .media-icon {
+      font-size: 2.5rem;
+      display: inline-block;
+    }
+
+    .media-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--med);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+      
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: var(--med);
+        border-radius: 50%;
+        margin-left: 0.5rem;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+    }
+
+    &:hover {
+      h2 {
+        color: var(--black);
+      }
+      
+      .media-link {
+        color: var(--black);
+        
+        &::after {
+          opacity: 1;
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hobbies-header {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .media-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .media-card {
+      padding: 1.5rem;
+    }
+  }
+</style>

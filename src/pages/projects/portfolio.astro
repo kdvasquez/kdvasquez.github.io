@@ -1,0 +1,563 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const projectTitle = "My Personal Portfolio";
+const projectDate = "Spring 2026 - Present";
+const liveUrl = "/";
+---
+
+<PageLayout>
+  <head>
+    <Head title={projectTitle} permalink="/projects/portfolio" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <article class="project-detail">
+        <header class="project-header">
+          <h1>{projectTitle}</h1>
+          <p class="project-date">{projectDate}</p>
+        </header>
+
+        <section class="project-section tldr">
+          <div class="tldr-layout">
+            <div class="tldr-info">
+              <h2>At a Glance</h2>
+              <p class="tagline">
+                A custom Astro portfolio that brings together my projects, writing, and design style
+                in one place without feeling like a generic template.
+              </p>
+
+              <div class="tldr-grid">
+                <div class="tldr-item">
+                  <span class="tldr-label">Role</span>
+                  <span class="tldr-value">Designer, developer, writer, and curator</span>
+                </div>
+                <div class="tldr-item">
+                  <span class="tldr-label">Tech Stack</span>
+                  <span class="tldr-value">
+                    <strong>Framework:</strong> Astro<br />
+                    <strong>Styling:</strong> SCSS<br />
+                    <strong>Content:</strong> JSON data and MDX blog posts<br />
+                    <strong>Focus:</strong> Responsive design, reusable components, and personal voice
+                  </span>
+                </div>
+              </div>
+
+              <div class="project-links">
+                <a href={liveUrl} class="btn-link">View Live Site</a>
+              </div>
+            </div>
+<!-- 
+            <div class="tldr-media">
+              <Image
+                src={images["/src/assets/portfolio/the-portfolio.jpg"]()}
+                alt="Homepage of the personal portfolio website"
+                quality={95}
+                class="demo-image"
+              />
+            </div> -->
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Problem and Motivation</h2>
+          <p>
+            I wanted a portfolio that could present technical work clearly without flattening the rest
+            of my personality. The site needed room for engineering projects, writing, and media work,
+            while still feeling cohesive and easy to navigate.
+          </p>
+          <p>
+            It also became a place to practice frontend craftsmanship in a real product: layout,
+            responsiveness, content structure, metadata, filtering, and the balance between style and
+            maintainability.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>Overview</h2>
+          <p>
+            The portfolio is a multi-page Astro site with a homepage, portfolio archive, project detail
+            pages, a blog, an about page, and a hobbies section. Shared components keep the experience
+            consistent, while structured content lets me expand the site without rebuilding everything
+            page by page.
+          </p>
+          <p>
+            Rather than relying on a stock portfolio starter, I shaped the visual language around a
+            warm palette, editorial copy, and a more personal tone. The goal was for the site to feel
+            authored, not assembled.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>Site in Action</h2>
+          <div class="screenshot-grid single">
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/the-portfolio.jpg"]()}
+                alt="Portfolio homepage featuring the postcard-style hero section"
+                quality={95}
+              />
+              <p class="caption">Postcard-inspired homepage with direct paths into my work</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Core Features</h2>
+
+          <div class="feature-row">
+            <div class="feature-icon">🗂️</div>
+            <div class="feature-content">
+              <h3>Structured Portfolio Archive</h3>
+              <p>
+                Project cards are driven from shared data so titles, dates, descriptions, tags, and
+                links stay centralized instead of being duplicated across the site.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">✍️</div>
+            <div class="feature-content">
+              <h3>Integrated Writing Space</h3>
+              <p>
+                Blog posts live inside the same site so writing and technical work support each other
+                instead of feeling disconnected.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">🏷️</div>
+            <div class="feature-content">
+              <h3>Filterable Project Browsing</h3>
+              <p>
+                Visitors can scan featured, software, hardware, and research work more quickly through
+                interactive filtering on the portfolio page.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">🧩</div>
+            <div class="feature-content">
+              <h3>Reusable Component System</h3>
+              <p>
+                Shared navigation, card, button, and layout components keep the site visually
+                consistent and make it easier to add new content over time.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">📱</div>
+            <div class="feature-content">
+              <h3>Responsive Presentation</h3>
+              <p>
+                The design adapts across desktop and mobile so the site stays readable and intentional
+                at different screen sizes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Tech Stack and Technical Decisions</h2>
+
+          <div class="highlight-card">
+            <h3>Astro for a Content-First Architecture</h3>
+            <p>
+              Astro was a good fit because most of the site is content-heavy and presentation-focused.
+              It keeps the output lightweight while still giving me component structure and page-level
+              flexibility.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>JSON and MDX for Different Kinds of Content</h3>
+            <p>
+              Structured project data and long-form writing have different needs, so I split them into
+              formats that are easy to update without forcing everything into one pattern.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>SCSS for a Custom Visual Voice</h3>
+            <p>
+              I used SCSS and shared design tokens to keep the site cohesive while still making space
+              for details like the postcard homepage, soft shadows, and warmer colors.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Reusable Components Over One-Off Layouts</h3>
+            <p>
+              Shared primitives make the site easier to maintain as I add more projects and reduce the
+              chance of pages drifting apart stylistically.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Challenges and What I Learned</h2>
+
+          <div class="challenge">
+            <h3>Designing for Personality Without Losing Clarity</h3>
+            <p>
+              The challenge was not just making the site look good. It was deciding how much
+              personality to show while still helping visitors find the important information quickly.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Content Structure Becomes a Product Decision</h3>
+            <p>
+              Once the site started growing, content modeling mattered as much as layout. Centralizing
+              project data made the portfolio easier to update and less error-prone.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Small Frontend Details Shape Trust</h3>
+            <p>
+              Metadata, link behavior, image handling, and responsive spacing all affect whether a site
+              feels polished. This project reinforced how much quality lives in those small decisions.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Results</h2>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">5</span>
+              <span class="stat-label">Main site sections supporting different kinds of work</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">1</span>
+              <span class="stat-label">Unified space for projects, writing, and side work</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Featured project pages with deeper case-study treatment</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">Ongoing</span>
+              <span class="stat-label">A portfolio system that can keep growing with new work</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Future Improvements</h2>
+          <ul>
+            <li>Add a final production domain to Astro site metadata once deployment is set.</li>
+            <li>Continue improving project thumbnails and summary copy for older portfolio entries.</li>
+            <li>Add more original screenshots for secondary pages like blog and hobbies.</li>
+            <li>Keep expanding writing and case studies so the strongest work stays easy to find.</li>
+          </ul>
+        </section>
+      </article>
+
+      <div class="back-button">
+        <a href="/portfolio">← Back to Portfolio</a>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .back-button {
+    margin-bottom: 2rem;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--med);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      transition: all 0.2s;
+      box-shadow: none;
+      &:hover {
+        color: var(--black);
+        background: none;
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  .project-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+  }
+
+  .project-date {
+    color: var(--med);
+    font-style: italic;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--med);
+    margin: 0.25rem 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--med);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: var(--smalldrop);
+    &:hover {
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  .tldr {
+    background-color: var(--light);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--med);
+  }
+
+  .tldr-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tldr-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tldr-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tldr-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--med);
+  }
+
+  .tldr-value {
+    font-size: 0.95rem;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .tldr-media {
+    text-align: center;
+
+    .demo-image {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: var(--carddrop);
+      display: block;
+      margin: 0 auto;
+      background: var(--white);
+    }
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+    h2 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+    h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    ul {
+      line-height: 1.8;
+      margin-left: 1.5rem;
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+    code {
+      background: var(--light);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+  }
+
+  .feature-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .feature-content {
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .highlight-card {
+    background: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--med);
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .challenge {
+    background-color: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      color: var(--med);
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &.single {
+      grid-template-columns: 1fr;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .screenshot {
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: var(--carddrop);
+    }
+    .caption {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--med);
+      font-style: italic;
+    }
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--light);
+    border-radius: 8px;
+    .stat-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--med);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--black);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .screenshot-grid,
+    .stats {
+      grid-template-columns: 1fr !important;
+    }
+
+    .feature-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

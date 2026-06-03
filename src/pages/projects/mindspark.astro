@@ -1,0 +1,670 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const projectTitle = "MindSpark";
+const projectDate = "Spring 2026";
+const projectTags = [
+  "Swift",
+  "SwiftUI",
+  "Anthropic Claude API",
+  "AI",
+  "Combine",
+  "async/await",
+  "MVVM",
+  "XCTest",
+  "AVFoundation",
+];
+const githubUrl = "https://github.com/kdvasquez/mindspark";
+
+const screenshots = [
+  {
+    src: "/src/assets/portfolio/mindspark1.png",
+    alt: "MindSpark home screen with learning modes",
+    caption: "Home Dashboard",
+  },
+  {
+    src: "/src/assets/portfolio/mindspark3.png",
+    alt: "Math Blitz multiplication practice screen",
+    caption: "Math Blitz",
+  },
+  {
+    src: "/src/assets/portfolio/mindspark4.png",
+    alt: "AI-generated hint shown during a math question",
+    caption: "AI Hint",
+  },
+  {
+    src: "/src/assets/portfolio/mindspark5.png",
+    alt: "Story Quest topic picker screen",
+    caption: "Story Topic Picker",
+  },
+  {
+    src: "/src/assets/portfolio/mindspark6.png",
+    alt: "AI-generated reading passage with comprehension questions",
+    caption: "Story Quest",
+  },
+  {
+    src: "/src/assets/portfolio/mindspark2.png",
+    alt: "MindSpark results screen with stars and progress summary",
+    caption: "Results and Progress",
+  },
+];
+---
+
+<PageLayout>
+  <head>
+    <Head title={projectTitle} permalink="/projects/mindspark" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <article class="project-detail">
+        <header class="project-header">
+          <h1>{projectTitle}</h1>
+          <p class="project-date">{projectDate}</p>
+        </header>
+
+        <section class="project-section tldr">
+          <div class="tldr-layout">
+            <div class="tldr-info">
+              <h2>At a Glance</h2>
+              <p class="tagline">
+                An AI-powered iOS learning app that combines multiplication practice with custom
+                reading comprehension stories for elementary students.
+              </p>
+
+              <div class="tldr-grid">
+                <div class="tldr-item">
+                  <span class="tldr-label">Role</span>
+                  <span class="tldr-value">Solo designer and iOS developer</span>
+                </div>
+                <div class="tldr-item">
+                  <span class="tldr-label">Tech Stack</span>
+                  <span class="tldr-value">
+                    <strong>Language:</strong> Swift<br />
+                    <strong>UI/Apple frameworks:</strong> SwiftUI, Combine, AVFoundation<br />
+                    <strong>AI/API:</strong> Anthropic Claude API, JSON prompt contracts<br />
+                    <strong>Persistence:</strong> UserDefaults, Codable<br />
+                    <strong>Architecture:</strong> MVVM, service protocol injection<br />
+                    <strong>Testing:</strong> XCTest, XCUITest
+                  </span>
+                </div>
+                <div class="tldr-item">
+                  <span class="tldr-label">AI Status</span>
+                  <span class="tldr-value">
+                    Live Claude API integration is implemented behind a mockable service layer. The
+                    app currently defaults to mock responses for development and UI testing.
+                  </span>
+                </div>
+              </div>
+
+              <div class="project-links">
+                {githubUrl && (
+                  <a href={githubUrl} target="_blank" rel="noreferrer" class="btn-link">
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div class="tldr-video">
+              <video autoplay loop muted playsinline class="demo-video">
+                <source src="/mindspark-demo.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Problem and Motivation</h2>
+          <p>
+            I wanted to build a learning app that felt more adaptive than a static quiz for my students to try out. 
+            Many practice apps give students the same questions and the same feedback no matter what they struggle
+            with, which can make mistakes feel repetitive instead of useful. MindSpark explores how AI
+            can make practice feel more personal, encouraging, and responsive.
+          </p>
+          <p>
+            The project was also a way to bring several iOS concepts together in one product-like
+            experience: SwiftUI state management, async networking, testable game logic, persistent
+            progress tracking, read-aloud support, and a kid-friendly interface.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>Overview</h2>
+          <p>
+            MindSpark has two learning modes. Math Blitz helps students practice multiplication facts
+            through timed multiple-choice rounds, streak scoring, hints, mastery tracking, and results
+            feedback. Story Quest lets students choose a topic and receive an AI-generated reading
+            passage with comprehension questions and gentle explanations for wrong answers.
+          </p>
+          <p>
+            Behind the interface, the app uses a protocol-based AI service so the real Claude API can
+            be swapped with a mock service during development and tests. That made it possible to build
+            loading states, error handling, and UI flows without depending on live API calls.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>App in Action</h2>
+          <div class="screenshot-grid">
+            {screenshots.map((item) => {
+              const imageLoader = images[item.src];
+              return (
+                <div class="screenshot">
+                  {imageLoader ? (
+                    <Image src={imageLoader()} alt={item.alt} quality={95} />
+                  ) : (
+                    <div class="screenshot-placeholder">
+                      <span>{item.caption}</span>
+                    </div>
+                  )}
+                  <p class="caption">{item.caption}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Core Features</h2>
+
+          <div class="feature-row">
+            <div class="feature-icon">AI</div>
+            <div class="feature-content">
+              <h3>AI-Generated Learning Support</h3>
+              <p>
+                The app can call Claude to generate math hints, reading passages, comprehension
+                questions, wrong-answer explanations, difficulty recommendations, and parent-friendly
+                progress summaries.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">×</div>
+            <div class="feature-content">
+              <h3>Math Blitz Practice Mode</h3>
+              <p>
+                Students answer timed multiplication questions with streak-based scoring, limited
+                hints, animated answer states, and a results screen that highlights weak spots.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">Aa</div>
+            <div class="feature-content">
+              <h3>Story Quest Reading Mode</h3>
+              <p>
+                Students choose a topic, read a short story, and answer
+                multiple-choice comprehension questions generated from the passage.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">↗</div>
+            <div class="feature-content">
+              <h3>Progress and Mastery Tracking</h3>
+              <p>
+                UserDefaults and Codable models persist daily stars, total sessions, streaks, and
+                multiplication mastery records so progress carries across app launches.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">♬</div>
+            <div class="feature-content">
+              <h3>Read-Aloud Support</h3>
+              <p>
+                An AVSpeechSynthesizer service provides text-to-speech for Story Quest, making the app
+                more approachable for younger learners and students who benefit from audio support.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Tech Stack and Technical Decisions</h2>
+
+          <div class="highlight-card">
+            <h3>Protocol-Based AI Service</h3>
+            <p>
+              I created an <code>AIServiceProtocol</code> with both real and mock implementations. This
+              made the app easier to test, kept UI development fast, and separated the product behavior
+              from the availability and cost of live API calls.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Structured JSON Prompt Contracts</h3>
+            <p>
+              Each AI prompt asks for valid JSON matching a Swift <code>Codable</code> model. That kept
+              the model output predictable enough to decode into typed app data instead of treating AI
+              responses as loose strings.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>SwiftUI MVVM State Management</h3>
+            <p>
+              I kept game and story logic in <code>GameViewModel</code> and <code>StoryViewModel</code>,
+              with views observing published state. That made the learning flows easier to reason about
+              and kept UI code focused on presentation.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Pure Swift Logic for Testability</h3>
+            <p>
+              The multiplication generator and session scoring logic are independent of SwiftUI, which
+              allowed me to cover them with focused XCTest cases.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Challenges and What I Learned</h2>
+
+          <div class="challenge">
+            <h3>Designing AI Features That Support Learning</h3>
+            <p>
+              I had to think beyond simply adding an API call. The prompts needed to produce responses
+              that were age-appropriate, encouraging, short enough for the UI, and structured enough for
+              the app to parse reliably.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Keeping the App Testable Without Live AI Calls</h3>
+            <p>
+              Live AI calls are slow, cost money, and can vary from run to run. Adding a mock AI service
+              let me test the full interface and loading states while still keeping the real integration
+              ready behind the same protocol.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Managing Timed Game State in SwiftUI</h3>
+            <p>
+              Math Blitz uses a Combine timer, answer state, score updates, hint loading, and automatic
+              question advancement. Building that flow reinforced the importance of a clear state
+              machine instead of scattering game state across views.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Balancing Delight with Accessibility</h3>
+            <p>
+              Because the audience is elementary students, the interface needed to feel playful without
+              becoming confusing. Text-to-speech, settings, readable cards, and simple interaction
+              patterns helped keep the app approachable.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Results</h2>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">5</span>
+              <span class="stat-label">AI-powered learning features implemented</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">2</span>
+              <span class="stat-label">Practice modes: Math Blitz and Story Quest</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Persistent progress systems: stars, streaks, mastery</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">15+</span>
+              <span class="stat-label">Unit and UI test cases covering core flows</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Future Improvements</h2>
+          <ul>
+            <li>
+              Move the Anthropic API key behind a lightweight backend proxy before any production
+              release.
+            </li>
+            <li>
+              Add parent and teacher dashboards for viewing progress across multiple learners.
+            </li>
+            <li>
+              Use CloudKit or a backend database to sync progress across devices.
+            </li>
+            <li>
+              Add adaptive practice sessions that automatically prioritize weak multiplication facts.
+            </li>
+            <li>
+              Input little games the student can playing after completing a mission for more inspiration.
+            </li>
+          </ul>
+        </section>
+      </article>
+
+      <div class="back-button">
+        <a href="/portfolio">← Back to Portfolio</a>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .back-button {
+    margin-bottom: 2rem;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--med);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      transition: all 0.2s;
+      box-shadow: none;
+      &:hover {
+        color: var(--black);
+        background: none;
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  .project-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+  }
+
+  .project-date {
+    color: var(--med);
+    font-style: italic;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--med);
+    margin: 0.25rem 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--med);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: var(--smalldrop);
+    &:hover {
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  .tldr {
+    background-color: var(--light);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--med);
+  }
+
+  .tldr-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tldr-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tldr-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tldr-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--med);
+  }
+
+  .tldr-value {
+    font-size: 0.95rem;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .tldr-video {
+    text-align: center;
+
+    .demo-video {
+      width: 100%;
+      max-width: 240px;
+      border-radius: 18px;
+      box-shadow: var(--carddrop);
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+    h2 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+    h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    ul {
+      line-height: 1.8;
+      margin-left: 1.5rem;
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+    code {
+      background: var(--light);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+  }
+
+  .feature-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+
+  .feature-icon {
+    width: 2.15rem;
+    min-width: 2.15rem;
+    height: 2.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    border-radius: 999px;
+    background: var(--light);
+    color: var(--med);
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .feature-content {
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .highlight-card {
+    background: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--med);
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .challenge {
+    background-color: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      color: var(--med);
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .screenshot {
+    text-align: center;
+    img,
+    .screenshot-placeholder {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 8px;
+      box-shadow: var(--carddrop);
+    }
+    img {
+      height: auto;
+      object-fit: cover;
+    }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: var(--light);
+      color: var(--med);
+      font-weight: 700;
+      text-align: center;
+    }
+    .caption {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--med);
+      font-style: italic;
+    }
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--light);
+    border-radius: 8px;
+    .stat-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--med);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--black);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .screenshot-grid,
+    .stats {
+      grid-template-columns: 1fr !important;
+    }
+
+    .feature-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

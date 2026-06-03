@@ -1,0 +1,53 @@
+---
+import ButtonBar from "@components/buttonbar.astro";
+import ButtonLink from "@components/buttonlink.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import PageLayout from "@layouts/page.astro";
+
+const { frontmatter } = Astro.props;
+
+const title = frontmatter.title;
+const description = frontmatter.description;
+const options: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+};
+const formatDate = frontmatter.publishDate.toLocaleDateString("en-US", options);
+const permalink = `/blog/${frontmatter.permalink}`;
+---
+
+<PageLayout>
+  <head>
+    <Head {title} {description} {permalink} />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <header class="header">
+        <h1>{title}</h1>
+        <span class="date">{formatDate}</span>
+      </header>
+      <div>
+        <slot />
+      </div>
+      <ButtonBar>
+        <ButtonLink href="/blog">&larr; Back</ButtonLink>
+      </ButtonBar>
+    </Container>
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .date {
+    font-style: oblique;
+  }
+
+  .header {
+    margin-bottom: var(--bottommargin);
+  }
+</style>

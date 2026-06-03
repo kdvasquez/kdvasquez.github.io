@@ -1,0 +1,132 @@
+---
+export interface Props {
+  post: any;
+}
+
+const { post } = Astro.props;
+
+const title = post.data.title;
+const description = post.data.description;
+const options: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+};
+const formatDate = post.data.publishDate.toLocaleDateString("en-US", options);
+const permalink = `/blog/${post.data.permalink}`;
+
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+let images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/blog/*/*.{jpeg,jpg,png,gif}"
+);
+if (!images[post.data.cover]) {
+  images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/blog/*/*/*.{jpeg,jpg,png,gif}"
+  );
+  if (!images[post.data.cover]) {
+    throw new Error(
+      `"${post.data.cover}" does not exist in glob: "src/assets/blog/*/*.{jpeg,jpg,png,gif}" or "src/assets/blog/*/*/*.{jpeg,jpg,png,gif}"`
+    );
+  }
+}
+---
+
+<a class="cardlink" href={permalink}>
+  <article class="card">
+    <Image
+      class="image"
+      src={images[post.data.cover]()}
+      alt="cover"
+      width="400"
+      loading="lazy"
+    />
+    <div class="content">
+      <header class="header">
+        <h2 class="title">{title}</h2>
+        <span class="date">{formatDate}</span>
+      </header>
+      <p>{description}</p>
+    </div>
+  </article>
+</a>
+
+<style lang="scss">
+  .card {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--white);
+    box-shadow: var(--carddrop);
+  }
+
+  .card:hover {
+    transform: scale(1.01);
+    transition: 0.3s;
+  }
+
+  .card:active {
+    transform: scale(0.98);
+    transition: 0.3s;
+  }
+
+  .image {
+    object-fit: cover;
+    min-width: 250px;
+    width: 250px;
+    height: auto;
+    max-height: 250px;
+    flex: 1 1 0;
+
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+  }
+
+  .cardlink {
+    color: inherit;
+    text-decoration: none;
+    box-shadow: none;
+    padding: 0;
+    transition: none;
+    font-weight: inherit;
+    flex-grow: 1;
+  }
+
+  .cardlink:hover {
+    color: inherit;
+    background: none;
+  }
+
+  .cardlink:visited {
+    color: inherit;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 999 1 200px;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .date {
+    font-style: oblique;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title {
+    margin-bottom: 0;
+  }
+</style>

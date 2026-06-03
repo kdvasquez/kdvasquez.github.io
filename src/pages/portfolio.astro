@@ -1,0 +1,250 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import PortfolioCard from "@components/portfoliocard.astro";
+import Footer from "@components/footer.astro";
+import data from "@data/portfolio.json";
+
+const categories = ['featured', 'all', 'software', 'hardware', 'research'];
+---
+
+<PageLayout>
+  <head>
+    <Head title="Portfolio" permalink="/portfolio" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <div class="portfolio-header">
+        <h1>Oh, would you look at that!</h1>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="filter-bar">
+        {categories.map((category) => (
+          <button 
+            class="filter-pill" 
+            data-filter={category}
+            data-active={category === 'featured' ? 'true' : 'false'}
+          >
+            {category === 'featured' && <span class="star">⭐</span>}
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="grid">
+        {data.map(({ image, body, title, date, description, url, imageUrl, tags, portfolio, featured }) => (
+          portfolio && (
+            <div
+              class="grid-item"
+              data-tags={tags.join(' ')}
+              data-featured={featured || false}
+              style={!featured ? 'display: none;' : ''}
+            >
+              <div class="card-wrapper">
+                {featured && (
+                  <div class="featured-badge">
+                    <span class="star">⭐</span>
+                    <span>featured</span>
+                  </div>
+                )}
+                <PortfolioCard {image} {body} {title} {date} {description} {url} {imageUrl} {tags} />
+              </div>
+            </div>
+          )
+        ))}
+        <div class="empty-state" style="display: none;">
+          <p>No projects found in this category.</p>
+        </div>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .portfolio-header {
+    margin-bottom: 2rem;
+    
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    background: transparent;
+    padding: 1rem 0;
+  }
+
+  .filter-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1.25rem;
+    border: 2px solid var(--med);
+    background: transparent;
+    color: var(--med);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    text-transform: lowercase;
+    font-family: inherit;
+    font-size: inherit;
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    
+    .star {
+      font-size: 16px;
+    }
+    
+    &:hover {
+      background: var(--light);
+      transform: translateY(-2px);
+    }
+    
+    &[data-active="true"] {
+      background: var(--med);
+      color: white;
+    }
+    
+    &[data-filter="featured"] {
+      border-color: var(--light);
+      color: var(--light);
+      
+      &:hover {
+        background: var(--light);
+        color: var(--med);
+      }
+      
+      &[data-active="true"] {
+        background: var(--light);
+        color: var(--med);
+      }
+    }
+  }
+
+  .grid {
+    -webkit-columns: 20em;
+    -moz-columns: 20em;
+    columns: 20em;
+    gap: 24px;
+  }
+
+  .grid-item {
+    break-inside: avoid;
+    margin-bottom: 24px;
+    
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--med);
+    font-size: 1.1rem;
+    
+    p {
+      margin: 0;
+    }
+  }
+
+  .card-wrapper {
+    position: relative;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    background: rgba(255, 200, 221, 0.15);
+    color: var(--med);
+    border: 1px solid var(--light);
+    padding: 0.35rem 0.75rem;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    .star {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .filter-pill {
+      padding: 0.5rem 1rem;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  const initializePortfolioFilters = () => {
+    const filterPills = Array.from(document.querySelectorAll('.filter-pill'));
+    const gridItems = Array.from(document.querySelectorAll('.grid-item'));
+    const emptyState = document.querySelector('.empty-state');
+
+    if (filterPills.length === 0 || gridItems.length === 0) return;
+
+    const applyFilter = (filter) => {
+      filterPills.forEach((pill) => pill.setAttribute('data-active', 'false'));
+
+      const activePill = document.querySelector(`[data-filter="${filter}"]`);
+      if (activePill) {
+        activePill.setAttribute('data-active', 'true');
+      }
+
+      gridItems.forEach((item) => {
+        const tags = item.getAttribute('data-tags') || '';
+        const isFeatured = item.getAttribute('data-featured') === 'true';
+
+        const shouldShow =
+          filter === 'all'
+            ? true
+            : filter === 'featured'
+              ? isFeatured
+              : tags.includes(filter);
+
+        item.style.display = shouldShow ? '' : 'none';
+        item.classList.toggle('hidden', !shouldShow);
+      });
+
+      if (emptyState) {
+        const visibleItems = gridItems.filter((item) => item.style.display !== 'none');
+        emptyState.style.display = visibleItems.length === 0 ? 'block' : 'none';
+      }
+    };
+
+    filterPills.forEach((pill) => {
+      pill.onclick = (event) => {
+        event.preventDefault();
+        const filter = pill.getAttribute('data-filter');
+        if (filter) applyFilter(filter);
+      };
+    });
+
+    applyFilter('featured');
+  };
+
+  initializePortfolioFilters();
+  document.addEventListener('astro:page-load', initializePortfolioFilters);
+</script>

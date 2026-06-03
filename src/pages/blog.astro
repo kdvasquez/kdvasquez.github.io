@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/page.astro";
+import BlogCard from "@components/blogcard.astro";
+import ButtonBar from "@components/buttonbar.astro";
+import ButtonFilter from "@components/buttonfilter.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+
+let allPosts = await getCollection("blog");
+
+const categories: string[] = [];
+
+allPosts = allPosts.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+allPosts.forEach((p) => {
+  p.data.tags.forEach((t) => {
+    if (!categories.includes(t)) {
+      categories.push(t);
+    }
+  });
+});
+---
+
+<PageLayout>
+  <head>
+    <Head title="Blog" permalink="/blog" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <h1>All the things I can write...</h1>
+
+      <div class="content">
+        <ButtonBar>
+          {categories.map((c) => (
+            <ButtonFilter id={c} tag={c} />
+          ))}
+        </ButtonBar>
+
+        {allPosts.map((p) => (
+          <div class={`blog-card ${p.data.tags.join(" ")}`}>
+            <BlogCard post={p} />
+          </div>
+        ))}
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .filtered {
+    display: none;
+  }
+
+  .selected {
+    display: block;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  const initializeBlogFilters = () => {
+    const activeFilters = new Set();
+    const buttons = Array.from(document.querySelectorAll('.content button'));
+    const cards = Array.from(document.querySelectorAll('.blog-card'));
+
+    if (buttons.length === 0 || cards.length === 0) return;
+
+    const update = () => {
+      cards.forEach((card) => {
+        const matches =
+          activeFilters.size === 0 ||
+          Array.from(activeFilters).some((filter) => card.classList.contains(filter));
+
+        card.classList.toggle('filtered', !matches);
+        card.classList.toggle('selected', matches && activeFilters.size > 0);
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.onclick = () => {
+        const id = button.id;
+        if (!id) return;
+
+        if (activeFilters.has(id)) {
+          activeFilters.delete(id);
+          button.classList.remove('clicked');
+        } else {
+          activeFilters.add(id);
+          button.classList.add('clicked');
+        }
+
+        update();
+      };
+    });
+
+    update();
+  };
+
+  initializeBlogFilters();
+  document.addEventListener('astro:page-load', initializeBlogFilters);
+</script>

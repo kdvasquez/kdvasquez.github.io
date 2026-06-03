@@ -1,0 +1,711 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const projectTitle = "The SCavenger";
+const projectDate = "Spring 2025";
+const githubUrl = "https://github.com/kdvasquez/ee459-project.git";
+const reportUrl =
+  "https://drive.google.com/drive/u/0/folders/1zWWpFd6XocNqJNcO7SNQ-4su-GIDjb_C";
+const presentationUrl =
+  "https://drive.google.com/drive/u/0/folders/1zWWpFd6XocNqJNcO7SNQ-4su-GIDjb_C";
+---
+
+<PageLayout>
+  <head>
+    <Head title={projectTitle} permalink="/projects/scavenger" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <article class="project-detail">
+         <h1>{projectTitle}</h1>
+      <p class="project-date">{projectDate}</p>
+        <section class="project-section tldr">
+          <div class="tldr-layout">
+            <div class="tldr-info">
+              <h2>At a Glance</h2>
+              <p class="tagline">
+                A sensor-driven embedded puzzle game built into a physical journal,
+                where players solve real-world challenges to unlock a hidden
+                compartment.
+              </p>
+
+              <div class="tldr-grid">
+                <div class="tldr-item">
+                  <span class="tldr-label">Role</span>
+                  <span class="tldr-value">
+                    One of three Senior Capstone engineers
+                  </span>
+                </div>
+
+                <div class="tldr-item">
+                  <span class="tldr-label">Tech Stack</span>
+                  <span class="tldr-value">
+                    <strong>Language:</strong> C<br />
+                    <strong>Microcontroller:</strong> ATmega328P<br />
+                    <strong>Communication:</strong> I2C, UART<br />
+                    <strong>Sensors:</strong> TSL2591 (light), MPL3115A2 (altitude/temp), LIS3DH (accelerometer), MTK3339 (GPS)<br />
+                    <strong>Output:</strong> 20x4 LCD, LEDs, buzzer, solenoid lock
+                  </span>
+                </div>
+              </div>
+
+              <div class="project-links">
+                {githubUrl && (
+                  <a href={githubUrl} target="_blank" rel="noreferrer" class="btn-link">
+                    View on GitHub
+                  </a>
+                )}
+                {reportUrl && (
+                  <a href={reportUrl} target="_blank" rel="noreferrer" class="btn-link">
+                    Technical Report
+                  </a>
+                )}
+                {presentationUrl && (
+                  <a
+                    href={presentationUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="btn-link"
+                  >
+                    Final Presentation
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div class="tldr-video">
+              <video controls class="demo-video">
+                <source src="/scavenger-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Problem and Motivation</h2>
+          <p>
+            The SCavenger was designed in response to research showing how much
+            leisure time is spent in sedentary entertainment. Our team wanted to
+            build something that encouraged movement, exploration, and problem
+            solving instead of passive screen time.
+          </p>
+          <p>
+            The result was a portable, journal-inspired puzzle device that turns
+            physical interaction into gameplay. Players move through six
+            sequential challenges involving light, altitude, GPS, movement, and
+            coded clues, and completing all six puzzles unlocks a hidden
+            compartment with a solenoid lock.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>Overview</h2>
+          <p>
+            An ATmega328P microcontroller acts as the central controller for the
+            entire system, coordinating multiple sensors over I2C, with the GPS
+            module connected over UART. The device presents prompts and feedback
+            through a 20x4 LCD, LEDs, a buzzer, and a final locking mechanism.
+          </p>
+          <p>
+            What made the project especially interesting was that it combined
+            embedded programming, hardware integration, narrative design, and
+            interdisciplinary collaboration into one physical experience.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>System in Action</h2>
+          <div class="screenshot-grid single">
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/puzzles.png"]()}
+                alt="Six-stage puzzle flow from start to unlock"
+                quality={95}
+              />
+              <p class="caption">Complete puzzle sequence and game flow</p>
+            </div>
+          </div>
+          <p>
+            For detailed hardware close-ups and step-by-step demonstration, see the 
+            <a href={presentationUrl} target="_blank" rel="noreferrer"><strong>Final Presentation</strong></a>.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>My Contributions</h2>
+          <p>
+            As one of three engineers on a five-person interdisciplinary team, I
+            contributed across hardware integration, debugging, and team
+            coordination.
+          </p>
+
+          <div class="highlight-card">
+            <h3>Hardware Integration and Assembly</h3>
+            <p>
+              I helped integrate the components onto the protoboard within tight
+              physical constraints, including soldering, mounting, power
+              distribution, and full-system wiring. I also selected LED resistor
+              values and verified behavior with a multimeter and oscilloscope
+              during assembly.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Testing and Debugging</h3>
+            <p>
+              I debugged sensor initialization issues, LCD integration problems,
+              and memory limitations caused by large narrative strings. Before
+              full software integration was complete, I used the LCD itself as a
+              lightweight debugging interface to surface sensor output in
+              real time.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Cross-Team Communication</h3>
+            <p>
+              I also helped bridge communication between the engineering team
+              and the Otis design team by documenting meetings, surfacing
+              blockers, and translating technical constraints into language the
+              designers could act on.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Tech Stack and System Architecture</h2>
+
+          <div class="arch-grid">
+            <div class="tech-detail">
+              <h4>Core System</h4>
+              <ul>
+                <li><strong>ATmega328P</strong> microcontroller</li>
+                <li><strong>C</strong> with the AVR-GCC toolchain</li>
+                <li><strong>PROGMEM</strong> for Flash-based string storage</li>
+                <li><strong>I2C</strong> and <strong>UART</strong> communication</li>
+              </ul>
+            </div>
+
+            <div class="tech-detail">
+              <h4>Sensors</h4>
+              <ul>
+                <li><strong>TSL2591</strong> for light detection</li>
+                <li><strong>MPL3115A2</strong> for altitude and temperature</li>
+                <li><strong>LIS3DH</strong> for accelerometer-based movement</li>
+                <li><strong>MTK3339</strong> for GPS over UART</li>
+              </ul>
+            </div>
+
+            <div class="tech-detail">
+              <h4>Output and Interaction</h4>
+              <ul>
+                <li><strong>20x4 LCD</strong> for prompts and hints</li>
+                <li><strong>LEDs</strong> for Morse code patterns</li>
+                <li><strong>Buzzer</strong> for audio feedback</li>
+                <li><strong>Solenoid lock</strong> for final compartment unlock</li>
+              </ul>
+            </div>
+
+            <div class="tech-detail">
+              <h4>Power and Build</h4>
+              <ul>
+                <li><strong>4x AA batteries</strong> for portable power</li>
+                <li><strong>Buck converter</strong> stepping down to 5V</li>
+                <li><strong>NPN transistors</strong> for output switching</li>
+                <li>
+                  Bench tools including a soldering station, oscilloscope, and
+                  multimeter
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Challenges and What I Learned</h2>
+
+          <div class="challenge">
+            <h3>ATmega RAM Overflow</h3>
+            <p>
+              <strong>Problem:</strong> The GPS puzzle caused RAM overflow because
+              large dialogue strings were stored in SRAM alongside runtime data,
+              exceeding the ATmega328P's limited memory.
+            </p>
+            <p>
+              <strong>Solution:</strong> We moved the dialogue strings into Flash
+              memory using <code>PROGMEM</code> and only loaded text into RAM when
+              it needed to be displayed.
+            </p>
+            <p>
+              <strong>Learning:</strong> On embedded systems, memory is a design
+              constraint from the start, not something to optimize later.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>TSL2591 I2C Write Failure</h3>
+            <p>
+              <strong>Problem:</strong> The light sensor acknowledged read commands
+              but silently failed on write operations, which blocked proper
+              configuration.
+            </p>
+            <p>
+              <strong>Solution:</strong> After revisiting the datasheet, we found
+              that the initialization sequence needed additional timing between
+              commands. Adding the correct delay fixed the issue.
+            </p>
+            <p>
+              <strong>Learning:</strong> Hardware bugs often come down to timing
+              and protocol details, not just high-level logic.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>ESP32-C3 Failure and Scope Adjustment</h3>
+            <p>
+              <strong>Problem:</strong> An ESP32-based Wi-Fi puzzle was not
+              reliably returning data, and with only two weeks left before the
+              deadline, it became a schedule risk.
+            </p>
+            <p>
+              <strong>Solution:</strong> We made the pragmatic decision to replace
+              that puzzle with a sensor-based alternative that better fit the
+              timeline and system stability.
+            </p>
+            <p>
+              <strong>Learning:</strong> A good engineering decision is not always
+              "fix the original idea." Sometimes it is protecting the experience
+              by changing course at the right time.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Physical Assembly Constraints</h3>
+            <p>
+              <strong>Problem:</strong> The protoboard had limited space, and fitting
+              all components required careful planning for sensor placement, wire
+              routing, and avoiding shorts between closely packed parts.
+            </p>
+            <p>
+              <strong>Solution:</strong> We laid out components in stages, testing
+              fit before soldering. The GPS module, LCD, and sensors were positioned
+              to minimize wire crossings and allow access for debugging.
+            </p>
+            <p>
+              <strong>Learning:</strong> Physical prototyping is as much about spatial
+              reasoning as electrical engineering. You can't debug what you can't reach.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Component Selection and Power Management</h3>
+            <p>
+              <strong>Problem:</strong> LEDs needed current-limiting resistors, and the
+              solenoid drew too much current to be driven directly from the ATmega. We
+              also had to prevent the 5V rail from burning out sensitive components.
+            </p>
+            <p>
+              <strong>Solution:</strong> We calculated resistor values for each LED to
+              stay within the 20mA safe limit. For the solenoid, we used a 2N2222 NPN
+              transistor to switch the high current safely. A diode was added in parallel
+              with the solenoid to protect against voltage spikes.
+            </p>
+            <p>
+              <strong>Learning:</strong> Power management isn't optional. Small mistakes
+              like skipping a resistor or using the wrong transistor can destroy components
+              or create intermittent failures.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Hands-On Fabrication</h3>
+            <p>
+              <strong>Problem:</strong> The board required drilling mounting holes for
+              sensors and buttons, soldering through-hole components without bridging
+              connections, and rewiring after discovering trace mistakes.
+            </p>
+            <p>
+              <strong>Solution:</strong> We drilled holes using a hand drill and deburring
+              tool, verified hole alignment before soldering, and used desoldering braid
+              to fix mistakes. Some connections required multiple iterations to get right,
+              especially the tightly packed I2C bus.
+            </p>
+            <p>
+              <strong>Learning:</strong> Hardware isn't just software on a PCB. Drilling,
+              soldering, and rework are skills that directly impact whether a prototype
+              actually works. Patience and precision matter.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Results</h2>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">6</span>
+              <span class="stat-label">Sequential sensor-driven puzzles completed end to end</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Distinct sensor systems integrated into one device</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">60%</span>
+              <span class="stat-label">Approximate SRAM reduction after moving text to Flash</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">$98.81</span>
+              <span class="stat-label">Prototype cost per unit</span>
+            </div>
+          </div>
+        </section>
+
+         <section class="project-section">
+          <h2>Future Improvements</h2>
+          <ul>
+            <li>
+              <strong>Custom PCB:</strong> Replace protoboard with designed PCB to reduce size 
+              and improve reliability. Estimated production cost could drop to $46.92 per unit.
+            </li>
+            <li>
+              <strong>WiFi Integration:</strong> Complete ESP32-C3 implementation to enable 
+              web-based coordinate selection and remote puzzle updates.
+            </li>
+            <li>
+              <strong>Mobile Companion App:</strong> iOS/Android app for GPS coordinate suggestions, 
+              progress tracking, and social sharing features.
+            </li>
+            <li>
+              <strong>Battery Optimization:</strong> Implement sleep modes and power management 
+              to extend battery life beyond current ~8-hour runtime.
+            </li>
+          </ul>
+        </section>
+      </article>
+
+      <div class="back-button">
+        <a href="/portfolio">← Back to Portfolio</a>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .back-button {
+    margin-bottom: 2rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--med);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      transition: all 0.2s;
+      box-shadow: none;
+
+      &:hover {
+        color: var(--black);
+        background: none;
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  .project-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .project-date {
+    color: var(--med);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--med);
+    margin: 0.25rem 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--med);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: var(--smalldrop);
+    &:hover {
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  .tldr {
+    background-color: var(--light);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--med);
+  }
+
+  .tldr-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tldr-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tldr-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tldr-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--med);
+  }
+
+  .tldr-value {
+    font-size: 0.95rem;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .tldr-video {
+    text-align: center;
+
+    .demo-video {
+      width: 100%;
+      max-width: 640px;
+      border-radius: 12px;
+      box-shadow: var(--carddrop);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .caption {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--med);
+      font-style: italic;
+    }
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+    h2 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+    h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    h4 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    ul {
+      line-height: 1.8;
+      margin-left: 1.5rem;
+      li {
+        margin-bottom: 0.4rem;
+      }
+    }
+    code {
+      background: var(--light);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tech-detail {
+    background-color: var(--light);
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+
+    h4 {
+      margin-top: 0;
+    }
+
+    ul {
+      margin: 0.5rem 0 0 1.25rem;
+    }
+  }
+
+  .highlight-card {
+    background: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--med);
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .challenge {
+    background-color: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+
+    h3 {
+      margin-top: 0;
+      color: var(--med);
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+
+      strong {
+        color: var(--med);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+
+    &.single {
+      grid-template-columns: 1fr;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .screenshot {
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: var(--carddrop);
+    }
+
+    .caption {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--med);
+      font-style: italic;
+    }
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--light);
+    border-radius: 8px;
+
+    .stat-number {
+      display: block;
+      font-size: 2.25rem;
+      font-weight: bold;
+      color: var(--med);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--black);
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats,
+    .arch-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

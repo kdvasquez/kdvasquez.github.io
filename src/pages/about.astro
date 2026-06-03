@@ -1,0 +1,203 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "@layouts/page.astro";
+import ButtonBar from "@components/buttonbar.astro";
+import ButtonLink from "@components/buttonlink.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Socials from "@components/socials.astro";
+import headshot from "@assets/headshot.jpeg";
+import Footer from "@components/footer.astro";
+
+---
+
+<PageLayout>
+  <head>
+    <Head title="About" permalink="/about" />
+  </head>
+  <body>
+    <Navbar />
+    <Container>
+      <h1>Greetings!</h1>
+      <div class="tangent">
+        <div class="sidebar">
+          <div class="wrap">
+            <div class="rectangle-wrap">
+              <div class="rectangle"></div>
+            </div>
+            <div class="headshot">
+              <Image src={headshot} width="800" alt="Karla Vasquez headshot" />
+            </div>
+            <div class="fun-fact">
+              <p>
+                On <b>Christ solid rock I stand,</b> all other ground is sinking sand ✌️
+              </p>
+            </div>
+          </div>
+          <div class="bar">
+            <ButtonBar>
+              <ButtonLink href="/kdvasquez_2026resume.pdf" target="_blank" rel="noopener noreferrer">Resume</ButtonLink>
+              <ButtonLink href="https://www.notion.so/Karla-s-Postcards-to-Heaven-2d815e54d997801486cfe9bc662a3c8c?source=copy_link" target="_blank">
+                Notion
+              </ButtonLink>
+            </ButtonBar>
+            <Socials />
+          </div>
+        </div>
+        <div class="content">
+          <p>
+            My name is Karla, and I'm a recent Computer Engineering and Computer Science
+            <a href="https://www.cs.usc.edu/academic-programs/undergrad/computer-engineering-and-computer-science/" target="_blank">(CECS)</a>
+            graduate from <a href="https://usc.edu" target="_blank">the University of Southern California</a>.
+            After moving around the U.S. as a child, I eventually grew up in a small town in the Monterey Bay Area,
+            where a close-knit community helped spark my love for learning, especially in STEM.
+          </p>
+
+          <p>
+            At USC, my major exposed me to both software and hardware disciplines, helping me develop a versatile skill set. 
+            With these skills came challenges that tested my perseverance and problem-solving abilities. 
+            My motivation to pursue CECS went beyond a love for math, which first led me down this path. It was fueled by three things: 
+            the ability to apply software anywhere (from <a href="/portfolio" target="_blank">local websites</a> for church to tools behind the scenes at <a href="https://platia.app" target="_blank">Platia</a>); 
+            the belief that your background does not limit what you can achieve; and the understanding that technology touches every part of our lives, 
+            creating opportunities to make an impact and share your work with others.
+          </p>
+
+          <p>
+            After exploring different areas within CECS, it took me time to find my niche. My current internship at Platia gave me the flexibility 
+            and independence to grow into a frontend-focused software engineering role. On the side, I tutor elementary school students 
+            with <a href="https://heytutor.com/" target="_blank">HeyTutor</a> in my efforts to help strengthen the skills that form a strong foundation for them. When I'm not building my niche, 
+            I enjoy reading, writing, swimming, and maintaining my 1300+ day Duolingo streak in my attempt to become trilingual.
+          </p>
+
+        </div>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .content {
+    flex: 999 1 300px;
+  }
+
+  .tangent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    flex: 1 1 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 10;
+  }
+
+  .rectangle-wrap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .rectangle {
+    background: var(--light);
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    animation: whee 1s ease forwards;
+  }
+
+  .headshot {
+    z-index: 100;
+    max-width: 300px;
+    max-height: 300px;
+    animation: photo 1s ease forwards;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    img {
+      max-width: 300px;
+      height: auto;
+    }
+  }
+
+  .fun-fact {
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    background-color: var(--white);
+    padding: 1rem;
+    width: 16rem;
+    left: 8rem;
+    bottom: -2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: rotate(3deg);
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  .wrap:hover .fun-fact {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 374px) {
+    .headshot {
+      max-width: 200px;
+      max-height: 200px;
+
+      img {
+        max-width: 200px;
+        height: auto;
+      }
+    }
+  }
+
+  .bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rectangle {
+      animation: none;
+      transform: rotate(6deg);
+    }
+  }
+
+  @keyframes photo {
+    100% {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  @keyframes whee {
+    0% {
+      opacity: 0%;
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(6deg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>

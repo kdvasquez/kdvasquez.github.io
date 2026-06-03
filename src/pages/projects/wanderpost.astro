@@ -1,0 +1,644 @@
+---
+import PageLayout from "@layouts/page.astro";
+import Container from "@components/container.astro";
+import Head from "@components/head.astro";
+import Navbar from "@components/navbar.astro";
+import Footer from "@components/footer.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const projectTitle = "WanderPost";
+const projectDate = "Spring 2025";
+const projectTags = [
+  "Swift",
+  "SwiftUI",
+  "Firebase",
+  "MapKit",
+  "iOS",
+  "MVVM",
+  "REST API",
+  "CoreLocation",
+];
+const githubUrl = "https://github.com/kdvasquez/wanderpost";
+---
+
+<PageLayout>
+  <head>
+    <Head title={projectTitle} permalink="/projects/wanderpost" />
+  </head>
+
+  <body>
+    <Navbar />
+    <Container>
+      <article class="project-detail">
+        <header class="project-header">
+          <h1>{projectTitle}</h1>
+          <p class="project-date">{projectDate}</p>
+        </header>
+
+        <section class="project-section tldr">
+          <div class="tldr-layout">
+            <div class="tldr-info">
+              <h2>At a Glance</h2>
+              <p class="tagline">
+                An iOS app for turning everyday travel photos into digital postcards you can save,
+                revisit, and pin to a personal world map.
+              </p>
+
+              <div class="tldr-grid">
+                <div class="tldr-item">
+                  <span class="tldr-label">Role</span>
+                  <span class="tldr-value">Solo designer and iOS developer</span>
+                </div>
+                <div class="tldr-item">
+                  <span class="tldr-label">Tech Stack</span>
+                  <span class="tldr-value">
+                    <strong>Language:</strong> Swift<br />
+                    <strong>UI/Apple frameworks:</strong> SwiftUI, UIKit, MapKit, CoreLocation, PhotoKit<br />
+                    <strong>Backend/services:</strong> Firebase Storage, Firestore, OpenWeatherMap API<br />
+                    <strong>Architecture:</strong> MVVM
+                  </span>
+                </div>
+
+   
+              </div>
+
+              <div class="project-links">
+                {githubUrl && (
+                  <a href={githubUrl} target="_blank" rel="noreferrer" class="btn-link">
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div class="tldr-video">
+              <video autoplay loop muted playsinline class="demo-video">
+                <source src="/wanderpost-demo.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Problem and Motivation</h2>
+          <p>
+            I wanted to build something that felt more personal than a typical photo utility app.
+            A lot of travel memories end up buried in a camera roll, even when the moment itself felt
+            meaningful. WanderPost started as a way to turn ordinary photos into keepsakes that feel
+            intentional: part memory capture, part creative expression, part travel journal.
+          </p>
+          <p>
+            It was also a chance to push my iOS development skills beyond basic CRUD flows. I wanted
+            to build an app that combined polished UI, device capabilities, third-party APIs, offline
+            storage, and cloud syncing in one cohesive experience.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>Overview</h2>
+          <p>
+            WanderPost is a native iOS app that lets users select a photo, add contextual details like
+            city, date, note, and weather, and generate a finished digital postcard. The postcard can
+            then be saved locally, shared through the native iOS share sheet, or uploaded to Firebase.
+            Saved cards can also appear on a world map, giving users a visual history of where their
+            memories were made.
+          </p>
+        </section>
+
+        <section class="project-section">
+          <h2>App in Action</h2>
+          <div class="screenshot-grid">
+          <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost-cover.png"]()}
+                alt="WanderPost postcard collection screen"
+                quality={95}
+              />
+              <p class="caption">Postcard Collection</p>
+            </div>
+
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost4.png"]()}
+                alt="Photo selection screen"
+                quality={95}
+              />
+              <p class="caption">Photo Selection</p>
+            </div>
+
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost6.png"]()}
+                alt="Selected image preview before editing"
+                quality={95}
+              />
+              <p class="caption">Selected Image Preview</p>
+            </div>
+
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost8.png"]()}
+                alt="Postcard editor with personalization fields"
+                quality={95}
+              />
+              <p class="caption">Postcard Editor</p>
+            </div>
+
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost9.png"]()}
+                alt="Completed postcard saved in the app"
+                quality={95}
+              />
+              <p class="caption">Saved Postcard </p>
+            </div>
+
+
+            <div class="screenshot">
+              <Image
+                src={images["/src/assets/portfolio/wanderpost3.png"]()}
+                alt="Map view with a newly pinned postcard location"
+                quality={95}
+              />
+              <p class="caption">New Location Pinned on the Map</p>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Core Features</h2>
+
+          <div class="feature-row">
+            <div class="feature-icon">📸</div>
+            <div class="feature-content">
+              <h3>Photo-Based Postcard Creation</h3>
+              <p>
+                Users select a photo from their device and turn it into the visual base of a postcard
+                without needing a complex editing workflow.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">✏️</div>
+            <div class="feature-content">
+              <h3>Personalized Metadata</h3>
+              <p>
+                Each postcard can include a city, date, note, and weather details so the final result
+                captures more than just the image itself.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">🗺️</div>
+            <div class="feature-content">
+              <h3>Interactive Map View</h3>
+              <p>
+                Saved postcards with coordinates appear as pins on a MapKit world map, giving users a
+                visual record of where each memory happened.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">📬</div>
+            <div class="feature-content">
+              <h3>Export and Sharing</h3>
+              <p>
+                I used <code>UIGraphicsImageRenderer</code> to programmatically compose the final postcard
+                image so it could be saved, shared, or uploaded as a single asset.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-icon">☁️</div>
+            <div class="feature-content">
+              <h3>Local and Cloud Persistence</h3>
+              <p>
+                Postcards are stored locally for offline access, with optional Firebase upload for cloud
+                backup and metadata storage.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Tech Stack and Technical Decisions</h2>
+
+          <div class="highlight-card">
+            <h3>SwiftUI Frontend with MVVM Structure</h3>
+            <p>
+              I organized the app around MVVM and added a managers layer for services like weather,
+              location, and Firebase so that UI code stayed focused on presentation rather than network
+              or persistence logic.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>SwiftUI + UIKit Where Each Made Sense</h3>
+            <p>
+              SwiftUI handled the app interface, while UIKit filled the gap for rendering a single
+              exportable postcard image and supporting native sharing behavior.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Local-First Storage with Optional Cloud Backup</h3>
+            <p>
+              I chose local persistence first so the app could still feel useful offline, then layered
+              Firebase on top for storage and metadata sync. That tradeoff kept the base experience
+              simple while still giving the project more real-world depth.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Third-Party Integration Across a Single User Flow</h3>
+            <p>
+              The app pulls together device photos, location data, weather information, map rendering,
+              and cloud upload in one flow. Designing around that forced me to think carefully about
+              async state, optional data, and error handling.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Challenges and What I Learned</h2>
+
+          <div class="challenge">
+            <h3>State Management in SwiftUI</h3>
+            <p>
+              I ran into a bug where a shared router object had been instantiated in multiple places,
+              so the UI was observing one instance while another instance was being mutated. Fixing that
+              reinforced how important ownership and a single source of truth are in SwiftUI.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Navigation Design Matters Early</h3>
+            <p>
+              A save-and-share screen originally presented as a sheet made it difficult to reset the app
+              cleanly back to the collection view. Refactoring that flow into a typed navigation system
+              made the app easier to reason about and improved the user experience.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Evolving the Data Model</h3>
+            <p>
+              The original postcard model stored city names but not coordinates, which limited the map
+              experience. Adding optional latitude and longitude fields let me improve the feature set
+              without breaking previously saved data.
+            </p>
+          </div>
+
+          <div class="challenge">
+            <h3>Integration Work Is Not Just Code</h3>
+            <p>
+              Firebase Storage uploads initially failed because of project configuration and rules, not
+              because of my implementation. That was a good reminder that debugging integrations often
+              means checking platform setup, permissions, and product requirements before rewriting code.
+            </p>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Results</h2>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">4</span>
+              <span class="stat-label">External services and frameworks integrated</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">2</span>
+              <span class="stat-label">Persistence paths: local storage and cloud backup</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5+</span>
+              <span class="stat-label">Core user flows designed and implemented</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">1</span>
+              <span class="stat-label">Solo developer from concept to implementation</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section">
+          <h2>Future Improvements</h2>
+          <ul>
+            <li>
+              Add authentication so postcard collections can sync to a specific user across devices.
+            </li>
+            <li>
+              Expand customization with font, sticker, and layout options.
+            </li>
+            <li>
+              Add richer travel history views, such as a timeline or country-based collections.
+            </li>
+            <li>
+              Improve onboarding and empty states to make the first postcard flow even clearer.
+            </li>
+          </ul>
+        </section>
+      </article>
+
+      <div class="back-button">
+        <a href="/portfolio">← Back to Portfolio</a>
+      </div>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  .back-button {
+    margin-bottom: 2rem;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--med);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      transition: all 0.2s;
+      box-shadow: none;
+      &:hover {
+        color: var(--black);
+        background: none;
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  .project-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--med);
+  }
+
+  .project-date {
+    color: var(--med);
+    font-style: italic;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--med);
+    margin: 0.25rem 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--med);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: var(--smalldrop);
+    &:hover {
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  .tldr {
+    background-color: var(--light);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--med);
+  }
+
+  .tldr-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tldr-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tldr-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tldr-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--med);
+  }
+
+  .tldr-value {
+    font-size: 0.95rem;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .tldr-video {
+    text-align: center;
+
+    .demo-video {
+      width: 100%;
+      max-width: 240px;
+      border-radius: 18px;
+      box-shadow: var(--carddrop);
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+    h2 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+    h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    ul {
+      line-height: 1.8;
+      margin-left: 1.5rem;
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+    code {
+      background: var(--light);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+  }
+
+  .feature-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .feature-content {
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .highlight-card {
+    background: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--med);
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .challenge {
+    background-color: var(--white);
+    border-left: 4px solid var(--med);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--photodrop);
+    h3 {
+      margin-top: 0;
+      color: var(--med);
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .screenshot {
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: var(--carddrop);
+    }
+    .caption {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--med);
+      font-style: italic;
+    }
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--light);
+    border-radius: 8px;
+    .stat-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--med);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--black);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .screenshot-grid,
+    .stats {
+      grid-template-columns: 1fr !important;
+    }
+
+    .feature-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
