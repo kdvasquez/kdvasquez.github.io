@@ -1,4 +1,28 @@
-[
+[  
+  {
+    "image": true,
+    "body": true,
+    "title": "The SCavenger",
+    "date": "2025-04-30",
+    "description": "Sensor-driven embedded puzzle game built into a physical journal for Senior Capstone",
+    "url": "/projects/scavenger",
+    "imageUrl": "/src/assets/portfolio/scavenger-team.jpg",
+    "tags": ["hardware", "C", "AVR", "sensors"],
+    "portfolio": true,
+    "featured": true
+  }, 
+  {
+    "image": true,
+    "body": true,
+    "title": "IDDPMI Church Website",
+    "date": "2026-06-24",
+    "description": "Full-stack church website with automated Google Calendar events and Facebook livestream links that update weekly via Meta Graph API.",
+    "url": "https://github.com/kdvasquez/church-website/",
+    "imageUrl": "/src/assets/portfolio/church.png",
+    "tags": ["software", "JavaScript", "AI", "Node.js", "Meta API", "Google Calendar API"],
+    "portfolio": true,
+    "featured": false
+  },
   {
     "image": true,
     "body": true,
@@ -38,18 +62,6 @@
   {
     "image": true,
     "body": true,
-    "title": "The SCavenger",
-    "date": "2025-04-30",
-    "description": "Sensor-driven embedded puzzle game built into a physical journal for Senior Capstone",
-    "url": "/projects/scavenger",
-    "imageUrl": "/src/assets/portfolio/scavenger-team.jpg",
-    "tags": ["hardware", "C", "AVR", "sensors"],
-    "portfolio": true,
-    "featured": true
-  },
-  {
-    "image": true,
-    "body": true,
     "title": "Git450",
     "date": "2024-12-05",
     "description": "Version control and collaborative development exercises",
@@ -77,7 +89,7 @@
     "title": "Pawleeze",
     "date": "2024-05-05",
     "description": "Pet adoption platform connecting animals with potential adopters",
-    "url": "https://www.notion.so/Pawleeze-a32cfedca42f4ad7bfd0068ee49ca248",
+    "url": "https://github.com/kdvasquez/itp303-projects/blob/main/final_project/README.md",
     "imageUrl": "/src/assets/portfolio/pawleeze.png",
     "tags": ["software", "PHP", "MySQL", "full-stack"],
     "portfolio": true,
@@ -148,10 +160,22 @@
     "body": true,
     "title": "Parking Sensor",
     "date": "2023-05-03",
-    "description": "Ultrasonic parking distance sensor with visual and audio feedback",
+    "description": "Ultrasonic parking distance sensor with visual and audio feedback; available upon request",
     "url": "https://github.com/gilakohanbash/ParkingSensor",
     "imageUrl": "/src/assets/portfolio/parking-sensor.png",
-    "tags": ["hardware", "Arduino", "ultrasonic", "embedded"],
+    "tags": ["hardware", "RaspberryPI", "ultrasonic"],
+    "portfolio": true,
+    "featured": false
+  },
+  {
+    "image": true,
+    "body": true,
+    "title": "Data Structures & Algorithms Projects",
+    "date": "2022-12-12",
+    "description": "Fully functional DSA projects repo link available by request",
+    "url": "https://github.com/kdvasquez/cs104-projects",
+    "imageUrl": "/src/assets/portfolio/no-pic.png",
+    "tags": ["software", "C++", "Makefile"],
     "portfolio": true,
     "featured": false
   },
@@ -160,7 +184,7 @@
     "body": true,
     "title": "Speedometer",
     "date": "2022-12-03",
-    "description": "Digital speedometer built with Arduino and sensors",
+    "description": "Digital speedometer built with Arduino and sensors; available upon request",
     "url": "https://github.com/kdvasquez/ee109_finalProject",
     "imageUrl": "/src/assets/portfolio/speedometer.jpg",
     "tags": ["hardware", "Arduino", "embedded", "sensors"],
