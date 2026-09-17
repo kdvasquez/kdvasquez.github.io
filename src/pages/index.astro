@@ -1,306 +1,130 @@
 ---
 import PageLayout from "@layouts/page.astro";
+import Head from "@components/head.astro";
 import Kdv from "@components/kdv.astro";
 import ButtonLink from "@components/buttonlink.astro";
-import ButtonBar from "@components/buttonbar.astro";
-import Head from "@components/head.astro";
-import Socials from "@components/socials.astro";
-import navLinks from "@data/nav.json";
+import { Icon } from "astro-icon/components";
+
+const socials = [
+  { label: "Email Karla", href: "mailto:kdvasque@gmail.com", icon: "ion:mail-outline" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/kdvasquez", icon: "ion:logo-linkedin" },
+  { label: "GitHub", href: "https://github.com/kdvasquez", icon: "ion:logo-github" },
+];
 ---
 
 <PageLayout>
   <head>
-    <Head title="Home" permalink="/" />
+    <Head title="Home" permalink="/" description="I'm Karla Vasquez, a software engineer and USC grad building for the web, iOS, and the people on the other side of the screen." />
   </head>
-
   <body>
     <main>
-      <div class="wrap">
-        <div class="rectangle-wrap">
-          <div class="rectangle"></div>
-        </div>
-        <div class="home-wrap">
-          <div class="postcard">
-            <div class="postcard-content">
-              <div class="stamp">
-                <div class="stamp-icon">✉️</div>
-              </div>
-
-              <div class="postcard-body">
-                <Kdv />
-                
-                <p class="greeting">
-                  Hello! I'm Karla Vasquez, a Peruvian American recent grad from the <a href="https://usc.edu" target="_blank">University of Southern California</a>. 
-                  I studied Computer Engineering and Computer Science (CECS), which opened me up to a world where
-                  my inner <a href="/portfolio">engineer</a>, <a href="/blog">writer</a>, and <a href="/hobbies">video</a> creator can shine through my interest in 
-                  frontend development, iOS applications, AI-integrated tools, and solution-oriented engineering. 
-                  Thank you for stopping by!
-                </p>
-              </div>
-
-              <ButtonBar>
-                {
-                  navLinks.map(({ name, link }) => (
-                    <ButtonLink href={link}>{name}</ButtonLink>
-                  ))
-                }
-              </ButtonBar>
-
-              <Socials />
-            </div>
-
-            <div class="postcard-footer">
-              <div class="address-block">
-                <p class="address-label">To: You</p>
-                <p class="address-label">From: Karla</p>
-              </div>
-            </div>
+      <div class="postcard-wrap">
+        <article class="postcard" aria-labelledby="greeting">
+          <header class="postcard-header">
+            <a class="wordmark" href="/" aria-label="Karla Vasquez home"><span aria-hidden="true"><Kdv as="span" /></span></a>
+            <a class="stamp" href="https://www.cs.usc.edu/academic-programs/undergrad/computer-engineering-and-computer-science/" target="_blank" rel="noopener noreferrer" aria-label="Explore my USC Computer Engineering and Computer Science program (opens in a new tab)" title="Explore my USC program (opens in a new tab)">
+              <img src="/favicon.png" width="32" height="32" alt="" />
+              <span>USC CECS</span>
+              <span class="stamp-year">CLASS OF 2025</span>
+            </a>
+          </header>
+          <div class="message">
+            <h1 id="greeting" class="name">Hello, I'm Karla Vasquez</h1>
+            <p class="role">Software engineer. Curious by nature.</p>
+            <p class="intro">I build for the web, iOS, and the people on the other side of the screen. I also love teaching, which is why I have a soft spot for tools that help people learn.</p>
+            <nav class="nav-links" aria-label="Main navigation">
+              <ButtonLink class="postcard-button" href="/portfolio">View my work <Icon name="ion:arrow-forward" size={19} /></ButtonLink>
+              <a href="/about">About</a>
+              <a href="/blog">Blog</a>
+              <a href="/hobbies">Hobbies</a>
+            </nav>
           </div>
-        </div>
+          <footer class="postcard-footer">
+            <div class="address">
+              <p><span>To:</span> You. Thank you for stopping by!</p>
+              <p><span>From:</span> Karla</p>
+            </div>
+            <nav class="social-links" aria-label="Get in touch">
+              <a href="/kdvasquez_2026resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)" title="Resume (PDF, opens in a new tab)"><Icon name="ion:document-text-outline" size={22} /></a>
+              {socials.map(({ label, href, icon }) => (
+                <a href={href} aria-label={label} title={label}><Icon name={icon} size={22} /></a>
+              ))}
+            </nav>
+          </footer>
+        </article>
       </div>
     </main>
   </body>
 </PageLayout>
 
-<style lang="scss">
-  body {
-    justify-content: center;
-    align-items: center;
+<style>
+  body { margin: 0; padding: 0 32px; min-height: 100svh; font-size: 16px; letter-spacing: 0; background: var(--pale); color: var(--black); }
+  main { width: min(100%, 920px); padding: 48px 0; margin: auto; }
+  a { box-shadow: none; }
+  a:focus-visible { outline: 3px solid #8b355a; outline-offset: 5px; }
+  p { margin: 0; }
+  .wordmark { padding: 6px 0; }
+  .wordmark:hover { background: transparent; }
+  .nav-links { display: flex; align-items: center; gap: 24px; margin: 24px 0; font-size: 16px; white-space: nowrap; }
+  .nav-links > a:not(.postcard-button) { font-weight: 500; padding: 12px 0; }
+  .postcard-wrap { --card-tilt: -6deg; --back-tilt: 6deg; position: relative; isolation: isolate; margin: 0 30px; padding: 24px; background: var(--light); }
+  .postcard-wrap::before { content: ""; position: absolute; inset: 24px; background: var(--med); transform: rotate(var(--back-tilt)); z-index: -1; border-radius: 3px; animation: backing-in 1s ease-out; }
+  .postcard { background: var(--white); border: 2px solid var(--light); border-radius: 3px; padding: 28px 36px; transform: rotate(var(--card-tilt)); box-shadow: 0 10px 30px #0000001a; animation: postcard-in 1s ease-out; transition: transform 300ms ease, box-shadow 300ms ease; }
+  @keyframes backing-in { from { transform: rotate(0deg); } to { transform: rotate(var(--back-tilt)); } }
+  @keyframes postcard-in { from { transform: rotate(0deg) translateY(8px); } to { transform: rotate(var(--card-tilt)) translateY(0); } }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .postcard:hover { transform: rotate(var(--card-tilt)) translateY(-8px); box-shadow: 0 15px 40px #00000026; }
   }
-
-  @media (min-width: 850px) {
-    main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 900px;
-      background: var(--light);
-      padding: 2rem;
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 10;
-      animation: whee 1s forwards;
-    }
-
-    .rectangle-wrap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-    }
-
-    .rectangle {
-      background: var(--med);
-      width: 100%;
-      height: 100%;
-      z-index: 50;
-      transform: rotate(6deg);
-    }
-
-    .postcard {
-      animation: cuts 0.5s ease 0.5s;
-    }
-
-    .home-wrap {
-      z-index: 100;
-      display: flex;
-      animation: card 1s ease 1s forwards;
-    }
+  .postcard-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 4px; }
+  .stamp { flex: 0 0 80px; min-height: 82px; padding: 6px; border: 2px dashed #b87993; background: #fbeaf1; display: flex; align-items: center; flex-direction: column; gap: 3px; color: #66334b; font-size: 12px; font-weight: 700; transform: rotate(5deg); }
+  .stamp { transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; }
+  .stamp:visited { color: #66334b; }
+  .stamp:hover, .stamp:focus-visible { transform: rotate(0deg) translateY(-3px); background: #f8dce8; color: #66334b; box-shadow: 0 5px 12px #66334b18; }
+  .stamp img { object-fit: contain; }
+  .stamp-year { font-size: 9px; white-space: nowrap; }
+  .message { max-width: 620px; }
+  h1 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 14px; color: var(--med); }
+  .name { animation: greeting-in 700ms 120ms ease-out both; }
+  @keyframes greeting-in {
+    from { opacity: 0; transform: translateY(8px); text-shadow: -3px 3px 0 var(--light); }
+    to { opacity: 1; transform: translateY(0); text-shadow: -1px 1px 0 var(--light); }
   }
-
-  @media (max-width: 850px) {
-    .rectangle-wrap {
-      display: none;
-    }
-  }
-
-  .postcard {
-    position: relative;
-    width: 100%;
-    max-width: 700px;
-    background: var(--white);
-    border: 2px solid var(--light);
-    display: flex;
-    border-radius: 2px;
-    overflow: hidden;
-    transform: rotate(-6deg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-
-    &:hover {
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-      transform: rotate(-6deg) translateY(-8px);
-    }
-  }
-
-  .postcard-content {
-    flex: 1;
-    padding: 3rem 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    justify-content: space-between;
-    position: relative;
-    z-index: 1;
-  }
-
-  .stamp {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 60px;
-    height: 70px;
-    background: var(--light);
-    border: 2px dashed var(--med);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: stampBounce 2s ease-in-out infinite;
-
-    .stamp-icon {
-      font-size: 2rem;
-    }
-  }
-
-  .postcard-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .greeting {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--black);
-    margin: 0;
-
-    a {
-      color: var(--med);
-      box-shadow: inset 0 -2px 0 var(--light);
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: var(--light);
-        color: var(--med);
-      }
-    }
-  }
-
-  .postcard-footer {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 2.5rem;
-    text-align: right;
-  }
-
-  .address-block {
-    border: 1px solid var(--med);
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  .address-label {
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--med);
-    margin: 0 0 0.25rem 0;
-    letter-spacing: 1px;
-  }
-
-  @keyframes whee {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(6deg);
-    }
-  }
-
-  @keyframes card {
-    100% {
-      transform: rotate(-6deg);
-    }
-  }
-
-  @keyframes stampBounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-3px);
-    }
-  }
-
-  @keyframes cuts {
-    0% {
-      border: none;
-    }
-    20% {
-      border-top: 1px solid var(--light);
-    }
-    40% {
-      border-right: 1px solid var(--light);
-    }
-    60% {
-      border-bottom: 1px solid var(--light);
-    }
-    80% {
-      border-left: 1px solid var(--light);
-    }
-    100% {
-      border: 1px solid var(--light);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .postcard {
-      flex-direction: column;
-    }
-
-    .postcard-content {
-      padding: 2rem 1.5rem;
-      gap: 1rem;
-    }
-
-    .postcard-body {
-      gap: 0.75rem;
-    }
-
-    .greeting {
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .stamp {
-      width: 50px;
-      height: 60px;
-
-      .stamp-icon {
-        font-size: 1.5rem;
-      }
-    }
-
-    .postcard-footer {
-      position: static;
-      margin-top: 1rem;
-      text-align: left;
-    }
-  }
-
+  .role { font-size: 19px; line-height: 1.4; margin-bottom: 12px; font-weight: 600; }
+  .intro { max-width: 560px; font-size: 17px; line-height: 1.6; color: #505762; text-wrap: pretty; }
+  .nav-links :global(.postcard-button) { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; font-weight: 700; }
+  .nav-links :global(.postcard-button:focus-visible) { outline: 3px solid #8b355a; outline-offset: 5px; }
+  .postcard-footer { border-top: 1px solid #e6dce1; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .address p { font-size: 14px; line-height: 1.8; }
+  .address span { color: #7b5868; }
+  .social-links { display: flex; gap: 6px; }
+  .social-links a { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 4px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   @media (prefers-reduced-motion: reduce) {
-    .wrap,
-    .home-wrap,
-    .postcard,
-    .stamp {
-      animation: none;
-    }
+    .name, .postcard, .postcard-wrap::before { animation: none; }
+    .stamp, .postcard { transition: none; }
+    .stamp:hover, .stamp:focus-visible { transform: rotate(5deg); }
+  }
+  @media (max-width: 600px) {
+    body { padding: 0 20px; }
+    main { padding: 24px 0; }
+    .nav-links { gap: 10px; font-size: 13px; }
+    .nav-links :global(.postcard-button) { gap: 4px; padding: 10px 8px; }
+    .postcard-wrap { --card-tilt: -1deg; --back-tilt: 1deg; margin: 0; padding: 8px; }
+    .postcard { padding: 16px 18px; }
+    .postcard-wrap::before { inset: 8px; }
+    .postcard-header { gap: 12px; margin-bottom: 8px; }
+    .stamp { flex-basis: 76px; }
+    h1 { font-size: 26px; }
+    .role { font-size: 19px; }
+    .intro { font-size: 16px; }
+    .postcard-footer { flex-wrap: wrap; gap: 12px; }
+    .social-links { margin-left: -8px; }
+  }
+  @media (max-width: 360px) {
+    body { padding: 0 12px; }
+    .postcard { padding: 16px 12px; }
+    .nav-links { font-size: 12px; gap: 8px; }
+    .postcard-header { flex-wrap: wrap; }
+    .stamp { margin-left: auto; }
   }
 </style>

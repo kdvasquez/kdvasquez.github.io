@@ -1,7 +1,11 @@
 ---
+interface Props {
+  as?: "h1" | "span";
+}
+const { as: Tag = "h1" } = Astro.props;
 ---
 
-<h1>
+<Tag class:list={["kdv", { compact: Tag === "span" }]}>
   <span>K</span>
   <span>D</span>
   <span>V</span>
@@ -11,7 +15,7 @@
   <span>U</span>
   <span>E</span>
   <span>Z</span>
-</h1>
+</Tag>
 
 <style lang="scss">
   $t: 1s;
@@ -19,7 +23,7 @@
   $n: 3;
   $e: cubic-bezier(0.86, 0, 0.07, 1);
 
-  h1 {
+  .kdv {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -27,35 +31,38 @@
     -ms-user-select: none;
     user-select: none;
     margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0;
+    color: var(--black);
   }
 
   @keyframes ani {
     0% {
       transform: translate3d(0, 0, 0);
       text-shadow: 0em 0em 0 var(--light);
-      color: var(--dark);
+      color: var(--black);
     }
 
     30% {
       transform: translate3d(0, 0, 0);
       text-shadow: 0em 0em 0 var(--light);
-      color: var(--dark);
+      color: var(--black);
     }
 
     70% {
       transform: translate3d($d, -$d, 0);
       text-shadow: -$d $d var(--light);
-      color: var(--dark);
+      color: var(--black);
     }
 
     100% {
       transform: translate3d($d, -$d, 0);
       text-shadow: -$d $d var(--light);
-      color: var(--dark);
+      color: var(--black);
     }
   }
 
-  span {
+  .kdv > span {
     position: relative;
     display: inline-block;
     margin-right: -8px;
@@ -68,8 +75,14 @@
     }
   }
 
+  .compact {
+    display: inline-block;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    span {
+    .kdv > span {
       animation: none;
     }
   }
