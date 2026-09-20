@@ -2,6 +2,9 @@
   "name": "peaceful-point",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,13 +12,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@iconify-json/ion": "^1.2.6",
-    "@iconify-json/simple-icons": "^1.2.71",
-    "astro": "^5.14.8",
-    "astro-icon": "^1.1.5"
+    "@astrojs/mdx": "^8.0.1",
+    "@iconify-json/ion": "^1.2.7",
+    "@iconify-json/simple-icons": "^1.2.97",
+    "astro": "^7.3.3",
+    "astro-icon": "^1.2.0"
   },
   "devDependencies": {
-    "sass-embedded": "^1.97.3"
+    "sass-embedded": "^1.104.1"
   }
 }

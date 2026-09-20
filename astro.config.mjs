@@ -5,6 +5,8 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
     site: "https://kdvasquez.github.io",
+    // Preserve spacing between inline elements after the Astro 7 upgrade.
+    compressHTML: true,
     integrations: [
       mdx(), 
       icon()
