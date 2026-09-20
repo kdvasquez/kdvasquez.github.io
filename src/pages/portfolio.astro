@@ -38,7 +38,7 @@ const categories = ['featured', 'all', 'software', 'hardware', 'research'];
 
       <!-- Portfolio Grid -->
       <div class="grid">
-        {data.map(({ image, body, title, date, description, url, imageUrl, tags, portfolio, featured }) => (
+        {data.map(({ image, body, title, date, period, description, url, imageUrl, tags, portfolio, featured }) => (
           portfolio && (
             <div
               class="grid-item"
@@ -53,7 +53,7 @@ const categories = ['featured', 'all', 'software', 'hardware', 'research'];
                     <span>featured</span>
                   </div>
                 )}
-                <PortfolioCard {image} {body} {title} {date} {description} {url} {imageUrl} {tags} />
+                <PortfolioCard {image} {body} {title} {date} {period} {description} {url} {imageUrl} {tags} />
               </div>
             </div>
           )

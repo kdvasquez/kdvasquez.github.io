@@ -9,6 +9,7 @@ export interface Props {
   body: boolean;
   title: string;
   date: string;
+  period?: string;
   description: string;
   url: string;
   imageUrl: string;
@@ -16,7 +17,7 @@ export interface Props {
   featured?: boolean;
 }
 
-const { image, body, title, date, description, url, imageUrl, tags } =
+const { image, body, title, date, period, description, url, imageUrl, tags } =
   Astro.props;
 const isExternal = /^(https?:)?\/\//.test(url);
 const hasCustomUrl = url.trim().length > 0;
@@ -27,7 +28,7 @@ const options: Intl.DateTimeFormatOptions = {
   month: "long",
   day: "numeric",
 };
-const formatDate = newDate.toLocaleDateString("en-US", options);
+const formatDate = period || newDate.toLocaleDateString("en-US", options);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"
@@ -38,113 +39,47 @@ if (imageUrl != "" && !images[imageUrl])
     `"${imageUrl}" does not exist in glob: "src/assets/portfolio/*.{jpeg,jpg,png,gif,webp}"`
   );
 
-const imageMeta = await images[imageUrl]();
-const href = !body ? (hasCustomUrl ? url : imageMeta.default.src) : url;
+const imageMeta = imageUrl ? await images[imageUrl]() : null;
+if ((image || !body) && !imageMeta) throw new Error(`Image required for ${title}`);
+const href = !body ? (hasCustomUrl ? url : imageMeta!.default.src) : url;
 const opensNewTab = isExternal || !body;
 ---
 
 <article class="card">
-  {opensNewTab ? (
-    <a class="cardlink" href={href} target="_blank" rel="noreferrer">
-      <div class="content">
-        {
-          body ? (
-            <div class="card-content">
-              {image && (
-                <div class="image-container">
-                  <Image
-                    class="img-content"
-                    src={imageMeta.default}
-                    width="400"
-                    alt={description}
-                  />
-                </div>
-              )}
-              
-              <div class="text">
-                <div class="header">
-                  <h3 class="title">{title}</h3>
-                  <span class="date">{formatDate}</span>
-                </div>
-                <p class="description">{description}</p>
-                <ButtonBar>
-                  {tags.map((tag) => (
-                    <ButtonTag>{tag}</ButtonTag>
-                  ))}
-                </ButtonBar>
-              </div>
+  <a class="cardlink" href={href} target={opensNewTab ? '_blank' : undefined} rel={opensNewTab ? 'noreferrer' : undefined}>
+    <div class="content">
+      {body ? (
+        <div class="card-content">
+          {image && (
+            <div class="image-container">
+              <Image class="img-content" src={imageMeta!.default} width="400" alt={description} />
             </div>
-          ) : (
-            <div class="image-wrapper">
-              <Image
-                class="img-content"
-                src={imageMeta.default}
-                width="800"
-                alt={description}
-              />
-              <div class="hover-overlay">
-                <div class="overlay-content">
-                  <h3 class="overlay-title">{title}</h3>
-                  <p class="overlay-description">{description}</p>
-                  <span class="overlay-date">{formatDate}</span>
-                </div>
-              </div>
+          )}
+          <div class="text">
+            <div class="header">
+              <h3 class="title">{title}</h3>
+              <span class="date">{formatDate}</span>
             </div>
-          )
-        }
-      </div>
-    </a>
-  ) : (
-    <a class="cardlink" href={href}>
-      <div class="content">
-        {
-          body ? (
-            <div class="card-content">
-              {image && (
-                <div class="image-container">
-                  <Image
-                    class="img-content"
-                    src={imageMeta.default}
-                    width="400"
-                    alt={description}
-                  />
-                </div>
-              )}
-              
-              <div class="text">
-                <div class="header">
-                  <h3 class="title">{title}</h3>
-                  <span class="date">{formatDate}</span>
-                </div>
-                <p class="description">{description}</p>
-                <ButtonBar>
-                  {tags.map((tag) => (
-                    <ButtonTag>{tag}</ButtonTag>
-                  ))}
-                </ButtonBar>
-              </div>
+            <p class="description">{description}</p>
+            <ButtonBar>
+              {tags.map((tag) => <ButtonTag>{tag}</ButtonTag>)}
+            </ButtonBar>
+          </div>
+        </div>
+      ) : (
+        <div class="image-wrapper">
+          <Image class="img-content" src={imageMeta!.default} width="800" alt={description} />
+          <div class="hover-overlay">
+            <div class="overlay-content">
+              <h3 class="overlay-title">{title}</h3>
+              <p class="overlay-description">{description}</p>
+              <span class="overlay-date">{formatDate}</span>
             </div>
-          ) : (
-            <div class="image-wrapper">
-              <Image
-                class="img-content"
-                src={imageMeta.default}
-                width="800"
-                alt={description}
-              />
-              <div class="hover-overlay">
-                <div class="overlay-content">
-                  <h3 class="overlay-title">{title}</h3>
-                  <p class="overlay-description">{description}</p>
-                  <span class="overlay-date">{formatDate}</span>
-                </div>
-              </div>
-            </div>
-          )
-        }
-      </div>
-    </a>
-  )}
+          </div>
+        </div>
+      )}
+    </div>
+  </a>
 </article>
 
 <style lang="scss">
@@ -281,7 +216,7 @@ const opensNewTab = isExternal || !body;
     font-size: 16px;
     font-weight: 500;
     margin: 0;
-    color: var(--dark);
+    color: var(--black);
   }
 
   .date {

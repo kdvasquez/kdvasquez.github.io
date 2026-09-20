@@ -14,12 +14,29 @@
   {
     "image": true,
     "body": true,
+    "title": "Platia Office Web",
+    "date": "",
+    "period": "Sep 2025 - Mar 2026",
+    "description": "Modernizing a financial operations dashboard without leaving its existing workflows behind",
+    "url": "/projects/office",
+    "imageUrl": "/src/assets/portfolio/office.png",
+    "tags": [
+      "software",
+      "internship",
+      "case study"
+    ],
+    "portfolio": true,
+    "featured": true
+  },
+  {
+    "image": true,
+    "body": true,
     "title": "IDDPMI Church Website",
     "date": "2026-06-24",
-    "description": "Full-stack church website with automated Google Calendar events and Facebook livestream links that update weekly via Meta Graph API.",
-    "url": "https://github.com/kdvasquez/church-website/",
+    "description": "Full-stack church website with automated Google Calendar events, Facebook livestream links, embedded videos, and email support through Netlify.",
+    "url": "https://iddpmisoledad.netlify.app/",
     "imageUrl": "/src/assets/portfolio/church.png",
-    "tags": ["software", "JavaScript", "AI", "Node.js", "Meta API", "Google Calendar API"],
+    "tags": ["software", "JavaScript", "AI", "Google Calendar API"],
     "portfolio": true,
     "featured": false
   },
@@ -32,6 +49,23 @@
     "url": "/projects/mindspark",
     "imageUrl": "/src/assets/portfolio/mindspark1.png",
     "tags": ["software", "SwiftUI", "AI", "iOS"],
+    "portfolio": true,
+    "featured": true
+  },
+  {
+    "image": true,
+    "body": true,
+    "title": "Platia Pay",
+    "date": "",
+    "period": "Mar 2026 - Present",
+    "description": "Connecting merchant and acquirer admin web apps to financial workflows and automated releases",
+    "url": "/projects/merchant",
+    "imageUrl": "/src/assets/portfolio/merchant.png",
+    "tags": [
+      "software",
+      "internship",
+      "case study"
+    ],
     "portfolio": true,
     "featured": true
   },
@@ -54,10 +88,10 @@
     "date": "2026-04-01",
     "description": "Personal portfolio website built with Astro and SCSS",
     "url": "/projects/portfolio",
-    "imageUrl": "/src/assets/portfolio/the-portfolio.jpg",
+    "imageUrl": "/src/assets/portfolio/portfolio.png",
     "tags": ["software", "Astro", "SCSS", "TypeScript"],
     "portfolio": true,
-    "featured": true
+    "featured": false
   },
   {
     "image": true,

@@ -1,6 +1,8 @@
 ---
 import ButtonBar from "@components/buttonbar.astro";
 import { Icon } from "astro-icon/components";
+interface Props { resume?: boolean }
+const { resume = false } = Astro.props;
 ---
 
 <ButtonBar>
@@ -14,6 +16,11 @@ import { Icon } from "astro-icon/components";
   <a class="icon" href="https://github.com/kdvasquez" target="_blank">
     <Icon size={40} name="ion:logo-github" />
   </a>
+  {resume && (
+    <a class="icon" href="/web-resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)" title="Resume (PDF)">
+      <Icon size={40} name="ion:document-text-outline" />
+    </a>
+  )}
 
 
 </ButtonBar>
@@ -36,40 +43,3 @@ import { Icon } from "astro-icon/components";
     background: none;
   }
 </style>
-<!-- ---
-import ButtonBar from "@components/buttonbar.astro";
-import { Icon } from "astro-icon/components";
----
-
-<ButtonBar>
-  <a class="icon" href="mailto:kdvasque@gmail.com">
-    <Icon size={40} name="ion:mail" />
-  </a>
-  <a class="icon" href="https://linkedin.com/in/kdvasquez">
-    <Icon size={40} name="ion:logo-linkedin" />
-  </a>
-
-  <a class="icon" href="https://github.com/kdvasquez">
-    <Icon size={40} name="ion:logo-github" />
-  </a>
-
-</ButtonBar>
-
-<style lang="scss">
-  [data-icon] {
-    color: var(--med);
-  }
-
-  .icon {
-    text-decoration: none;
-  }
-
-  a {
-    box-shadow: none;
-    padding: 0;
-    transition: none;
-  }
-  a:hover {
-    background: none;
-  }
-</style> -->

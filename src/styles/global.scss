@@ -51,6 +51,26 @@ html {
   height: -webkit-fill-available;
 }
 
+.pointer-companion {
+  position: fixed;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--light);
+  box-shadow: 0 0 0 1px var(--med);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(14px, 14px);
+  transition: transform 150ms ease, background 150ms ease;
+}
+.pointer-companion.is-link {
+  transform: translate(14px, 14px) scale(1.35);
+  background: var(--med);
+}
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .pointer-companion { display: none; }
+}
+
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;

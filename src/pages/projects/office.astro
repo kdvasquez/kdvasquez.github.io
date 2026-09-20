@@ -1,0 +1,120 @@
+---
+import PageLayout from '@layouts/page.astro';
+import Container from '@components/container.astro';
+import Head from '@components/head.astro';
+import Navbar from '@components/navbar.astro';
+import Footer from '@components/footer.astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import cover from '@assets/portfolio/office.png';
+
+const study = {
+  "title": "Office Web",
+  "period": "Sep 2025 - Mar 2026",
+  "description": "Modernizing a financial operations dashboard without leaving its existing workflows behind.",
+  "coverAlt": "Platia Office Web sign-in screen",
+  "skills": [
+    "Frontend development",
+    "Application modernization",
+    "UI consolidation",
+    "Container deployment"
+  ],
+  "tools": [
+    "Angular",
+    "TypeScript",
+    "Tailwind CSS",
+    "Angular Material",
+    "Docker",
+    "Dokploy"
+  ],
+  "slug": "office"
+};
+---
+
+<PageLayout>
+  <head><Head title={study.title + ' Case Study'} description={study.description} permalink={'/projects/' + study.slug} /></head>
+  <body>
+    <Navbar />
+    <Container>
+      <article class="project-detail">
+        <header class="project-header">
+          <h1>{study.title}</h1>
+          <p class="project-date">Platia / {study.period}</p>
+        </header>
+        <figure class="project-cover">
+          <Image src={cover} alt={study.coverAlt} widths={[480, 800, 1600]} sizes="(max-width: 864px) calc(100vw - 64px), 800px" loading="eager" fetchpriority="high" />
+        </figure>
+        <section class="project-section at-a-glance" aria-labelledby="at-a-glance">
+          <h2 id="at-a-glance">At a Glance</h2>
+          <p class="tagline">{study.description}</p>
+          <dl class="details">
+            <div><dt>Role</dt><dd>Software Engineer Intern</dd></div>
+            <div><dt>Timeline</dt><dd>{study.period}</dd></div>
+            <div class="full-width"><dt>Skills</dt><dd>{study.skills.join(' / ')}</dd></div>
+            <div class="full-width">
+              <dt>Tech Stack</dt>
+              <dd><ul class="tech-stack" aria-label="Technologies">
+                {study.tools.map((tool, index) => <li class={'tech tech-' + (index % 4)}>{tool}</li>)}
+              </ul></dd>
+            </div>
+          </dl>
+        </section>
+        <section class="project-section" aria-labelledby="overview">
+          <h2 id="overview">Overview</h2>
+          <p>Office Web is Platia's financial operations admin dashboard. As a software engineer intern, I worked on modernizing its frontend, integrating REST APIs, and deploying the updated application.</p>
+          <p>The application started on Angular 16 and TypeScript 4.9 with four overlapping styling systems. My goal was to bring the framework and UI foundation forward while preserving the functionality already available in production.</p>
+          <p class="privacy"><Icon name="ion:lock-closed-outline" size={18} /><span>This case study shares a high-level account of my work. Source code and customer data remain private.</span></p>
+        </section>
+        <section class="project-section" aria-labelledby="modernization">
+          <h2 id="modernization">Dashboard Modernization</h2>
+          <div class="subsection">
+            <h3 id="framework-migration">Framework Migration</h3>
+            <p>I migrated Office Web from Angular 16 to Angular 19 and upgraded TypeScript from 4.9 to 5.7. This was work on an existing product, so keeping its current functionality intact was part of the migration.</p>
+            <p>The constraint made this different from starting a new application: I needed to improve the underlying frontend without removing the workflows the dashboard already supported.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="ui-consolidation">UI Consolidation</h3>
+            <p>I consolidated four styling systems into Tailwind CSS and Angular Material. Alongside that work, I reduced runtime dependencies from 49 to 13 (73%) and the component count from 81 to 31 (60%).</p>
+            <p>The outcome was a smaller frontend foundation with fewer overlapping styling systems. The important part was preserving existing functionality while making those reductions.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="deployment">Integration and Deployment</h3>
+            <p>I also integrated REST API endpoints for the dashboard and deployed Office Web using Docker and Dokploy. That gave me responsibility beyond changes running locally: the updated application also needed to be built and deployed.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="work-breakdown">Work Breakdown</h3>
+            <ol>
+              <li>Upgrade the application to Angular 19 and TypeScript 5.7 while preserving existing functionality.</li>
+              <li>Consolidate the styling systems into Tailwind CSS and Angular Material.</li>
+              <li>Reduce overlapping components and runtime dependencies.</li>
+              <li>Integrate dashboard REST APIs and deploy the updated application with Docker and Dokploy.</li>
+            </ol>
+          </div>
+        </section>
+        <section class="project-section" aria-labelledby="takeaways">
+          <h2 id="takeaways">Takeaways</h2>
+          <div class="subsection">
+            <h3 id="existing-products">Working With an Existing Product</h3>
+            <p>This project gave me experience improving software that already had a purpose and existing workflows. I had to keep those workflows in mind as I changed the framework and UI structure. A newer dependency version alone would not have made the migration successful.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="simplification">Simplification as Engineering Work</h3>
+            <p>A meaningful part of my contribution was consolidating what was already there. Working across four styling systems showed me why reducing overlap can be as important as adding another feature.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="beyond-local">Beyond Local Development</h3>
+            <p>Deploying with Docker and Dokploy broadened my understanding of frontend ownership. I gained experience taking an application from implementation through deployment, rather than treating the local development environment as the finish line.</p>
+          </div>
+        </section>
+        <nav class="back-button" aria-label="More projects">
+          <a href="/portfolio"><Icon name="ion:arrow-back" size={18} /> Back to Portfolio</a>
+        </nav>
+      </article>
+    </Container>
+    <Footer />
+  </body>
+</PageLayout>
+
+<style lang="scss">
+  @use "../../styles/platia-project";
+</style>
