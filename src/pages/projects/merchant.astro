@@ -10,13 +10,13 @@ import cover from '@assets/portfolio/merchant.png';
 
 const study = {
   "title": "Platia Pay",
-  "period": "Mar 2026 - Present",
-  "description": "Connecting merchant and acquirer admin web apps to financial workflows and automated releases.",
-  "coverAlt": "Platia merchant website introducing instant payments",
+  "period": "Mar 2026 - Sep 2026",
+  "description": "SvelteKit web applications for merchant payment operations and internal acquiring administration.",
+  "coverAlt": "PlatiaPay merchant web application",
   "skills": [
     "Frontend development",
     "REST API integration",
-    "Server-side routing",
+    "Authentication workflows",
     "CI/CD configuration"
   ],
   "tools": [
@@ -37,7 +37,7 @@ const study = {
       <article class="project-detail">
         <header class="project-header">
           <h1>{study.title}</h1>
-          <p class="project-date">Platia / {study.period}</p>
+          <p class="project-date">Summer 2026</p>
         </header>
         <figure class="project-cover">
           <Image src={cover} alt={study.coverAlt} widths={[480, 800, 1600]} sizes="(max-width: 864px) calc(100vw - 64px), 800px" loading="eager" fetchpriority="high" />
@@ -59,51 +59,49 @@ const study = {
         </section>
         <section class="project-section" aria-labelledby="overview">
           <h2 id="overview">Overview</h2>
-          <p>My Platia Pay work covered the merchant web application and the acquirer admin web application. As a software engineer intern, I connected these interfaces to existing backend services and configured their automated build and deployment pipelines.</p>
-          <p>Across the two applications, my integrations supported authentication, user management, wallets, payments, transactions, and audit logs. My contribution focused on making these backend capabilities usable through the web apps.</p>
-          <p class="privacy"><Icon name="ion:lock-closed-outline" size={18} /><span>This case study shares a high-level account of my work. Source code and customer data remain private.</span></p>
-        </section>
-        <section class="project-section" aria-labelledby="web-applications">
-          <h2 id="web-applications">Merchant and Admin Applications</h2>
-          <div class="subsection">
-            <h3 id="merchant">Merchant Web App</h3>
-            <p>I integrated 45 backend endpoints in the merchant web app. This work connected the merchant-facing web application to existing REST services as part of the broader financial and account-management workflows.</p>
-            <p>Within the SvelteKit application, I also implemented 42 local server route handlers. These are application-side handlers, distinct from the backend endpoints being integrated.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="admin">Acquirer Admin App</h3>
-            <p>In the acquirer admin web app, I integrated 28 backend endpoints and implemented 4 local server route handlers. This extended my work across both sides of the product rather than a single interface.</p>
-            <p>Together, the two applications account for 73 backend endpoint integrations and 46 local route handlers. These counts describe two different kinds of work and are not added together as one integration total.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="delivery">Automated Builds and Deployments</h3>
-            <p>I configured automated CI/CD pipelines for both applications, including environment-specific builds, Cloudflare Workers deployments, and production release validation.</p>
-            <p>The practical impact was less manual repetition: configured checks and deployment steps could run automatically instead of requiring me to start each step myself.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="work-breakdown">Work Breakdown</h3>
-            <ol>
-              <li>Connect merchant web workflows to existing backend REST APIs.</li>
-              <li>Integrate the acquirer admin application with its backend endpoints.</li>
-              <li>Implement local server route handlers within the SvelteKit applications.</li>
-              <li>Configure environment-specific builds and automated Cloudflare Workers deployments for both apps.</li>
-              <li>Validate production releases as part of the delivery work.</li>
-            </ol>
-          </div>
+          <p>My work on Acquiring Frontend covered two connected products: a merchant web app for managing payment operations and an internal admin app for overseeing the platform. I built and refined features in SvelteKit, connected frontend workflows to REST APIs, and helped prepare both applications for deployment.</p>
+          <p>Because the apps served different users, I had to understand what each person needed from the same payment system. Merchants needed clear tools for daily operations, while administrators needed broader views for account review, access control, and platform activity.</p>
+
+          <h3 id="merchant-features">Merchant Web App Key Features</h3>
+          <ul>
+            <li>Merchant registration and invitations</li>
+            <li>OTP and passkey authentication</li>
+            <li>Dashboard metrics and recent activity</li>
+            <li>Transaction and settlement review</li>
+            <li>Payment link and QR payment workflows</li>
+            <li>Store, register, and user management</li>
+            <li>Bank account management</li>
+            <li>Audit activity tracking</li>
+          </ul>
+
+          <h3 id="admin-features">Admin Web App Key Features</h3>
+          <ul>
+            <li>Platform dashboard and operational metrics</li>
+            <li>Merchant and account review</li>
+            <li>Transaction, merchant, and settlement queues</li>
+            <li>Manual adjustment workflows</li>
+            <li>Admin user and role management</li>
+            <li>Audit activity tracking</li>
+          </ul>
+          <p class="privacy"><Icon name="ion:lock-closed-outline" size={18} /><span>This case study shares a high-level account of my work. </span></p>
         </section>
         <section class="project-section" aria-labelledby="takeaways">
           <h2 id="takeaways">Takeaways</h2>
           <div class="subsection">
-            <h3 id="connected-workflows">Building Connected Workflows</h3>
-            <p>This work pushed my frontend experience beyond standalone screens. I worked on the connection between the interface and the services behind it, across two applications with different audiences.</p>
+            <h3 id="different-users">Designing for Different Users</h3>
+            <p>The merchant and admin apps use the same platform, but they solve different problems. Working on both taught me to shape each workflow around the person using it instead of treating every screen the same.</p>
           </div>
           <div class="subsection">
-            <h3 id="server-boundary">Understanding the Server Boundary</h3>
-            <p>Working with SvelteKit route handlers alongside backend integrations gave me experience on the server side of a web application. It also made the distinction between integrating an existing API and implementing application-side server code much more concrete.</p>
+            <h3 id="server-boundary">Working Across Client and Server</h3>
+            <p>SvelteKit gave me experience beyond the browser. I worked with pages, server routes, authenticated requests, and API responses, which helped me understand where data should be loaded, transformed, and protected before reaching the interface.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="authentication">Treating Authentication as a Full Workflow</h3>
+            <p>Working with registration, OTP verification, passkeys, invitations, and sessions showed me that authentication is more than a login screen. Every step needs clear feedback, safe redirects, and consistent handling when something expires or fails.</p>
           </div>
           <div class="subsection">
             <h3 id="repeatable-releases">Making Releases Repeatable</h3>
-            <p>Configuring the pipelines helped me see deployment as part of the development workflow. Moving repeated steps into automation reduced the need to run them manually and gave me practical experience with environment-specific builds and Cloudflare Workers.</p>
+            <p>I helped bring both apps into one repository and configure GitHub Actions and Cloudflare Workers deployments. That taught me how shared checks and environment-specific settings make releases easier to repeat and troubleshoot.</p>
           </div>
         </section>
         <nav class="back-button" aria-label="More projects">

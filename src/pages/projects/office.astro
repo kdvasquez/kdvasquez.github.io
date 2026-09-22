@@ -9,9 +9,9 @@ import { Image } from 'astro:assets';
 import cover from '@assets/portfolio/office.png';
 
 const study = {
-  "title": "Office Web",
-  "period": "Sep 2025 - Mar 2026",
-  "description": "Modernizing a financial operations dashboard without leaving its existing workflows behind.",
+  "title": "Platia Office Web",
+  "period": "Fall 2025",
+  "description": "Financial operations dashboard for managing users, wallet balances, deposits, withdrawals, transactions, audit logs, and internal admin workflows.",
   "coverAlt": "Platia Office Web sign-in screen",
   "skills": [
     "Frontend development",
@@ -39,17 +39,17 @@ const study = {
       <article class="project-detail">
         <header class="project-header">
           <h1>{study.title}</h1>
-          <p class="project-date">Platia / {study.period}</p>
+          <p class="project-date">{study.period}</p>
+          <p class="tagline">{study.description}</p>
+
         </header>
         <figure class="project-cover">
           <Image src={cover} alt={study.coverAlt} widths={[480, 800, 1600]} sizes="(max-width: 864px) calc(100vw - 64px), 800px" loading="eager" fetchpriority="high" />
         </figure>
-        <section class="project-section at-a-glance" aria-labelledby="at-a-glance">
-          <h2 id="at-a-glance">At a Glance</h2>
-          <p class="tagline">{study.description}</p>
+        <section class="project-section at-a-glance" aria-label="Project details">
           <dl class="details">
             <div><dt>Role</dt><dd>Software Engineer Intern</dd></div>
-            <div><dt>Timeline</dt><dd>{study.period}</dd></div>
+            <div><dt>Timeline</dt><dd>Sep 2025 - Mar 2026</dd></div>
             <div class="full-width"><dt>Skills</dt><dd>{study.skills.join(' / ')}</dd></div>
             <div class="full-width">
               <dt>Tech Stack</dt>
@@ -61,49 +61,45 @@ const study = {
         </section>
         <section class="project-section" aria-labelledby="overview">
           <h2 id="overview">Overview</h2>
-          <p>Office Web is Platia's financial operations admin dashboard. As a software engineer intern, I worked on modernizing its frontend, integrating REST APIs, and deploying the updated application.</p>
-          <p>The application started on Angular 16 and TypeScript 4.9 with four overlapping styling systems. My goal was to bring the framework and UI foundation forward while preserving the functionality already available in production.</p>
-          <p class="privacy"><Icon name="ion:lock-closed-outline" size={18} /><span>This case study shares a high-level account of my work. Source code and customer data remain private.</span></p>
-        </section>
-        <section class="project-section" aria-labelledby="modernization">
-          <h2 id="modernization">Dashboard Modernization</h2>
-          <div class="subsection">
-            <h3 id="framework-migration">Framework Migration</h3>
-            <p>I migrated Office Web from Angular 16 to Angular 19 and upgraded TypeScript from 4.9 to 5.7. This was work on an existing product, so keeping its current functionality intact was part of the migration.</p>
-            <p>The constraint made this different from starting a new application: I needed to improve the underlying frontend without removing the workflows the dashboard already supported.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="ui-consolidation">UI Consolidation</h3>
-            <p>I consolidated four styling systems into Tailwind CSS and Angular Material. Alongside that work, I reduced runtime dependencies from 49 to 13 (73%) and the component count from 81 to 31 (60%).</p>
-            <p>The outcome was a smaller frontend foundation with fewer overlapping styling systems. The important part was preserving existing functionality while making those reductions.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="deployment">Integration and Deployment</h3>
-            <p>I also integrated REST API endpoints for the dashboard and deployed Office Web using Docker and Dokploy. That gave me responsibility beyond changes running locally: the updated application also needed to be built and deployed.</p>
-          </div>
-          <div class="subsection">
-            <h3 id="work-breakdown">Work Breakdown</h3>
-            <ol>
-              <li>Upgrade the application to Angular 19 and TypeScript 5.7 while preserving existing functionality.</li>
-              <li>Consolidate the styling systems into Tailwind CSS and Angular Material.</li>
-              <li>Reduce overlapping components and runtime dependencies.</li>
-              <li>Integrate dashboard REST APIs and deploy the updated application with Docker and Dokploy.</li>
-            </ol>
-          </div>
+          <p>Office Web is Platia's financial operations dashboard for managing users, wallets, transactions, and other internal workflows. As a software engineer intern, I modernized its Angular frontend, integrated REST APIs, and helped deploy it across development and production environments.</p>
+          <p>The application needed an updated structure and design, along with support for a newer version of its backend API. To make that happen, I learned how its Angular routes, components, and services fit together and mapped each API operation to the right user workflow.</p>
+          <h3 id="key-features">Office Web Key Features</h3>
+          <ul>
+            <li>Authentication and session handling</li>
+            <li>User management and profile review</li>
+            <li>Status update workflows</li>
+            <li>Contact information updates</li>
+            <li>Wallet balance and activity display</li>
+            <li>Deposit and withdrawal operations</li>
+            <li>Transaction review and approval</li>
+            <li>Admin user management</li>
+            <li>Role-based admin access</li>
+            <li>Audit log tracking for admin actions</li>
+          </ul>
+          <p class="privacy"><Icon name="ion:lock-closed-outline" size={18} /><span>This case study shares a high-level account of my work.</span></p>
         </section>
         <section class="project-section" aria-labelledby="takeaways">
           <h2 id="takeaways">Takeaways</h2>
           <div class="subsection">
-            <h3 id="existing-products">Working With an Existing Product</h3>
-            <p>This project gave me experience improving software that already had a purpose and existing workflows. I had to keep those workflows in mind as I changed the framework and UI structure. A newer dependency version alone would not have made the migration successful.</p>
+            <h3 id="feature-analysis">Understanding the Workflows</h3>
+            <p>Before changing the frontend, I needed to understand how administrators actually used it. Their roles and permissions shape what they can view and do, from reviewing an account to completing an action and checking its audit history. Seeing how those steps connect helped me build each screen as part of a larger workflow.</p>
           </div>
           <div class="subsection">
-            <h3 id="simplification">Simplification as Engineering Work</h3>
-            <p>A meaningful part of my contribution was consolidating what was already there. Working across four styling systems showed me why reducing overlap can be as important as adding another feature.</p>
+            <h3 id="ui-consolidation">Simplifying the Frontend</h3>
+            <p>The project used Tailwind CSS, Angular Material, Flowbite, and DaisyUI, which created overlapping styles and components. I consolidated the UI around Tailwind CSS and Angular Material, reducing runtime dependencies from 49 to 13 and components from 81 to 31. This taught me to question what the project really needed and reuse patterns where they made sense.</p>
+          </div>
+
+          <div class="subsection">
+            <h3 id="financial-information">Making Financial Data Clear</h3>
+            <p>Financial data has to make sense from the user's point of view. For example, an incoming transfer showed the recipient's number instead of the sender's name. Fixing it meant identifying the direction of the transaction and displaying the right person. It was a small change, but it made the activity much easier to understand.</p>
           </div>
           <div class="subsection">
-            <h3 id="beyond-local">Beyond Local Development</h3>
-            <p>Deploying with Docker and Dokploy broadened my understanding of frontend ownership. I gained experience taking an application from implementation through deployment, rather than treating the local development environment as the finish line.</p>
+            <h3 id="deployment">Taking It Beyond Local</h3>
+            <p>I also learned what happens after the code works on my computer. Using GitHub Actions, Docker, Dokploy, and Cloudflare Workers showed me how code moves through builds and into different environments. It also taught me to check API settings, deployment targets, and logs before assuming a problem came from the frontend.</p>
+          </div>
+          <div class="subsection">
+            <h3 id="remote-collaboration">Working Across Time Zones</h3>
+            <p>On a remote team of three, I learned to investigate problems on my own, communicate when I needed context, and stay connected across time zones. Working with the product manager helped me prioritize what users needed, while backend discussions showed me how my frontend work fit into the larger system. One of my favorite parts was eventually meeting my teammates in person while visiting their city.</p>
           </div>
         </section>
         <nav class="back-button" aria-label="More projects">

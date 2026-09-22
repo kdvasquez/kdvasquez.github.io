@@ -7,6 +7,9 @@ export default defineConfig({
     site: "https://kdvasquez.github.io",
     // Preserve spacing between inline elements after the Astro 7 upgrade.
     compressHTML: true,
+    redirects: {
+      '/blog/my-first-year-as-a-new-grad-engineer': '/blog/first-year/',
+    },
     integrations: [
       mdx(), 
       icon()

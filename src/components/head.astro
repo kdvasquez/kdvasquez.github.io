@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import previewImage from '@assets/portfolio/portfolio.png';
 
 export interface Props {
   title: string;
@@ -17,7 +18,7 @@ const resolvedPermalink = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : null;
 
-const meta = "/assets/meta.png";
+const meta = new URL(previewImage.src, Astro.site ?? Astro.url).href;
 ---
 
 <!-- Global Metadata -->
